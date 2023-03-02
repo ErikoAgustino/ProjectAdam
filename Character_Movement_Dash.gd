@@ -1,3 +1,5 @@
+### Pindahin ke player.gd ###
+
 ## butuh 6 variable baru dan perubahan pada function player_movement() seperti yang ada dibawah.
 ## dan butuh input buat detect tombol shift dengan nama "ui_dash" biar script dash ini kerja.
 # dashing:boolean default false 
