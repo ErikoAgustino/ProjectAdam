@@ -67,7 +67,7 @@ func player_movement():
 	if velocity == Vector2.ZERO:
 		playback.travel("idle")
 	else:
-		playback.travel("run")	
+		playback.travel("walk")	
 		#dash
 		if(Input.is_action_just_pressed("dash") && !dash.isDashing() && dash.canDash):
 			dash.startDash(dashDuration, player)
@@ -81,22 +81,11 @@ func _physics_process(delta):
 	if(isNotAttacking):
 		attackDelay = 0.8
 		player_movement()
-		print(playback)
 	else:
 		attackDelay -= delta
-#		velocity = Vector2.ZERO
 		if(attackDelay < 0):
 			attackAnimationIndex = 0
 			isNotAttacking = true
 
 	attack_mechanic()
 	velocity = move_and_slide(velocity)
-
-
-#func _on_AnimationPlayer_animation_finished(anim_name):
-#	if(anim_name == "sword-combo-1" || anim_name == "sword-combo-2" || anim_name == "sword-combo-3"):
-#		isNotAttackAnimation = false
-#		clickCount = 0
-#	else:
-#		isNotAttackAnimation = true
-#	print(anim_name)
