@@ -14,10 +14,12 @@ onready var playback = animation_tree.get('parameters/playback')
 onready var player = $Sprite
 onready var attackTimer = $AttackTimer
 onready var hitbox = $Hitbox
+const arrowPath = preload('res://scene/character/Arrow.tscn')
 var attackAnimationName = ["sword1", "sword2", "sword3"]
 var attackAnimationIndex = 0
-
+var timerCharge = 3.0
 onready var dash = get_node("Dash")
+var timer = Timer.new()
 
 func attack_mechanic():
 	# If attack button clicked
@@ -42,7 +44,23 @@ func attack_mechanic():
 		# If it's over but the user didn't click the button, restart the animation
 		else:
 			attackAnimationIndex = 0
-
+	
+	if Input.is_action_just_pressed("ranged_attack"):
+		var timer = Timer.new()
+		timer.wait_time = timerCharge
+		timer.autostart = true
+		add_child(timer)
+		print("start shooting")
+		if Input.is_action_just_released("ranged_attack"):
+			print("a "+ timer.time_left)
+		#if timer.time_left > 2 and Input.is_action_just_released("ranged_attack"):
+		#	shoot_weak()
+		#if timer.time_left > 1 and Input.is_action_just_released("ranged_attack"):
+			#shoot_medium()
+		#if timer.time_left == 0 and Input.is_action_just_released("ranged_attack"):
+		#	shoot_strong()
+		
+		
 func player_movement():
 	velocity = Vector2.ZERO
 	if Input.is_action_pressed("down"):
@@ -74,9 +92,24 @@ func player_movement():
 
 		
 func _physics_process(delta):
+	$bow.look_at(get_viewport().get_mouse_position())
 	if(isNotAttacking):
 		player_movement()
 	attack_mechanic()
 
 func _on_AttackTimer_timeout():
 	isNotAttacking = true
+
+func shoot_weak():
+	pass
+
+func shoot_medium():
+	var arrow = arrowPath.instance()
+	
+	get_parent().add_child(arrow)
+	arrow.position = $bow/Position2D.global_position
+	
+	arrow.velocity = get_global_mouse_position() - arrow.position
+
+func shoot_strong():
+	pass
