@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-
 # Declare member variables here. Examples:
 var moveSpeed = 200.0
 var dashSpeed = 1000
@@ -17,12 +16,19 @@ onready var hitbox = $Hitbox
 const arrowPath = preload('res://scene/character/Arrow.tscn')
 var attackAnimationName = ["sword1", "sword2", "sword3"]
 var attackAnimationIndex = 0
-var timerCharge = 3.0
+var timerCharge = 2
 onready var dash = get_node("Dash")
+
 var timer = Timer.new()
+var rangeOnHold = false
+var maxCharge = false
+var timerRemoved = false
+onready var progressBar = $ProgressBar
+onready var lineIndicator = $bow/Position2D/Icon
 
 func attack_mechanic():
 	# If attack button clicked
+	
 	if Input.is_action_just_pressed("attack"):
 		isNotAttacking = false
 		# Move the player with attacking
@@ -44,22 +50,58 @@ func attack_mechanic():
 		# If it's over but the user didn't click the button, restart the animation
 		else:
 			attackAnimationIndex = 0
-	
+
+	## start charging bow with "z" max = 2 seconds
 	if Input.is_action_just_pressed("ranged_attack"):
-		var timer = Timer.new()
+		# starting new timer
+		timerRemoved = false
+		timer = Timer.new()
 		timer.wait_time = timerCharge
 		timer.autostart = true
 		add_child(timer)
-		print("start shooting")
-		if Input.is_action_just_released("ranged_attack"):
-			print("a "+ timer.time_left)
-		#if timer.time_left > 2 and Input.is_action_just_released("ranged_attack"):
-		#	shoot_weak()
-		#if timer.time_left > 1 and Input.is_action_just_released("ranged_attack"):
-			#shoot_medium()
-		#if timer.time_left == 0 and Input.is_action_just_released("ranged_attack"):
-		#	shoot_strong()
+		rangeOnHold = true
+		# showing an indicator using line from "Icon" node
+		lineIndicator.visible = true
+		progressBar.visible = true
+		# lowering movement speed while charging bow
+		moveSpeed -= 100
 		
+	## charge power meter
+	progressBar.value = timerCharge - timer.time_left
+	
+	## charge max
+	if timer.time_left < 0.1 and rangeOnHold == true: 
+		maxCharge = true
+		if(timerRemoved == false):
+			print("full charge")
+			timer.stop()
+			remove_child(timer)
+			timerRemoved = true
+		
+		
+	## release bow 
+	if Input.is_action_just_released("ranged_attack"):
+		var time = timer.time_left
+		print(time)
+		if(timerRemoved == false):
+			timer.stop()
+			remove_child(timer)
+		rangeOnHold = false
+		
+		# charge power level
+		if time >= 1.1:
+			shoot("weak")
+		if time > 0 and time < 1.1:
+			shoot("medium")
+		if maxCharge == true:
+			maxCharge = false
+			shoot("strong")
+		
+		#return to default value
+		moveSpeed += 100
+		progressBar.value = 0
+		progressBar.visible = false
+		lineIndicator.visible = false
 		
 func player_movement():
 	velocity = Vector2.ZERO
@@ -100,16 +142,10 @@ func _physics_process(delta):
 func _on_AttackTimer_timeout():
 	isNotAttacking = true
 
-func shoot_weak():
-	pass
-
-func shoot_medium():
+### creating new arrow projectile (need a string variable type)
+func shoot(chargeType):
 	var arrow = arrowPath.instance()
-	
-	get_parent().add_child(arrow)
 	arrow.position = $bow/Position2D.global_position
-	
+	arrow.chargeType = chargeType
 	arrow.velocity = get_global_mouse_position() - arrow.position
-
-func shoot_strong():
-	pass
+	get_parent().add_child(arrow)
