@@ -1,7 +1,7 @@
 extends KinematicBody2D
 export var path_to_player := NodePath()
 export(int) var lives: int=2
-var hp=100
+export(int) var hp: int=100
 var timer=0
 var maxSpeed := 0.0
 # Called when the node enters the scene tree for the first time.
@@ -70,13 +70,32 @@ func jump():
 #	pass
 
 func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	lives-=1
-	if (lives==0):
-		var scene = load("Slime.tscn")
+	hp-= 50
+	if(hp<=0):
+		var live=self.lives
+
+		var scene = load("res://scene/enemy/Slime.tscn")
 		var slime = scene.instance()
+		slime.path_to_player = self.path_to_player
+		slime.lives=live-1
+		slime.position = self.get_position()
+		
+		get_parent().add_child(slime)
+		print("spawn")
+		var slime2 = scene.instance()
+		slime2.path_to_player = self.path_to_player
+		slime2.lives=live-1
+		slime2.hp=100
+		slime2.position = self.get_position() + Vector2(100.0,100.0)
+		get_parent().add_child(slime2)
+		print("spawn2")
 		get_parent().remove_child(self)
-
-
+		queue_free()
+		print ("mati")
+		
+	if (lives<=0):
+		get_parent().remove_child(self)
+		queue_free()
 func _on_Slime_lives():
 	pass # Replace with function body.
 
