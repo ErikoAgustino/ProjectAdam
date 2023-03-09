@@ -1,6 +1,5 @@
 extends KinematicBody2D
 
-
 # Declare member variables here. Examples:
 export (float) var moveSpeed = 200.0
 export (float) var dashSpeed = 1000
@@ -21,9 +20,14 @@ var isNotAttackAnimation = true
 
 onready var dash = get_node("Dash")
 
+onready var weaponContainer = $WeaponContainer
+
 func attack_mechanic():
 	# If attack button clicked
 	if Input.is_action_just_pressed("attack") && isNotAttackAnimation:
+		var mousePos = get_global_mouse_position()
+		weaponContainer.look_at(mousePos)
+		
 		attackDelay = $AnimationPlayer.get_animation(attackAnimationName[attackAnimationIndex]).length + 0.5
 		isNotAttacking = false
 		# Move the player with attacking
