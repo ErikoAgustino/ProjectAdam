@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=40 format=2]
 
 [ext_resource path="res://Asset/Player/Battlemage Complete (Sprite Sheet)/Idle/Battlemage Idle.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://scene/character/Dash.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scene/character/Hitbox.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Asset/Player/Battlemage Complete (Sprite Sheet)/Dash/Battlemage Dash.png" type="Texture" id=9]
+[ext_resource path="res://scene/character/Camera.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=45]
 length = 0.001
@@ -467,6 +468,8 @@ graph_offset = Vector2( 0, -123.183 )
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 3, 3 )
 script = ExtResource( 2 )
+
+[node name="Camera" parent="." instance=ExtResource( 10 )]
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 5 )
