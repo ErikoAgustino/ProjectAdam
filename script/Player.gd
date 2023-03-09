@@ -11,7 +11,7 @@ var isNotAttacking = true
 onready var animation_player = $AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var playback = animation_tree.get('parameters/playback')
-onready var player = $Sprite
+onready var player = $Character
 onready var attackTimer = $AttackTimer
 onready var hitbox = $Hitbox
 var attackAnimationIndex = 0
@@ -57,11 +57,11 @@ func player_movement():
 	if Input.is_action_pressed("right"):
 		velocity.x += 1.0
 		player.flip_h = false
-		hitbox.flip_h(false)
+#		hitbox.flip_h = false
 	if Input.is_action_pressed("left"):
 		velocity.x -= 1.0
 		player.flip_h = true
-		hitbox.flip_h(true)
+#		hitbox.flip_h = false
 		
 	# Move and animation
 	if velocity == Vector2.ZERO:
