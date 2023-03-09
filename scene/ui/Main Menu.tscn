@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Fonts/m5x7.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://Fonts/Pixeboy-z8XGD.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Fonts/PressStart2P-vaV7.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://settings.gd" type="Script" id=4]
+[ext_resource path="res://Control.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -23,6 +25,7 @@ font_data = ExtResource( 3 )
 [node name="Control" type="Control" parent="MainMenu"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 5 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMenu/Control"]
 anchor_left = 0.5
@@ -36,9 +39,8 @@ margin_bottom = 100.884
 alignment = 1
 
 [node name="newgame" type="Button" parent="MainMenu/Control/VBoxContainer"]
-margin_top = 27.0
 margin_right = 102.0
-margin_bottom = 35.0
+margin_bottom = 19.0
 custom_colors/font_color = Color( 1, 0.6, 0, 1 )
 custom_colors/font_color_hover = Color( 1, 0.909804, 0, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -48,9 +50,9 @@ __meta__ = {
 }
 
 [node name="continue2" type="Button" parent="MainMenu/Control/VBoxContainer"]
-margin_top = 39.0
+margin_top = 23.0
 margin_right = 102.0
-margin_bottom = 47.0
+margin_bottom = 42.0
 custom_colors/font_color = Color( 1, 0.6, 0, 1 )
 custom_colors/font_color_hover = Color( 1, 0.909804, 0, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -60,21 +62,22 @@ __meta__ = {
 }
 
 [node name="settings" type="Button" parent="MainMenu/Control/VBoxContainer"]
-margin_top = 51.0
+margin_top = 46.0
 margin_right = 102.0
-margin_bottom = 59.0
+margin_bottom = 65.0
 custom_colors/font_color = Color( 1, 0.6, 0, 1 )
 custom_colors/font_color_hover = Color( 1, 0.909804, 0, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "Settings"
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="credit" type="Button" parent="MainMenu/Control/VBoxContainer"]
-margin_top = 63.0
+margin_top = 69.0
 margin_right = 102.0
-margin_bottom = 71.0
+margin_bottom = 88.0
 custom_colors/font_color = Color( 1, 0.6, 0, 1 )
 custom_colors/font_color_hover = Color( 1, 0.909804, 0, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -84,9 +87,9 @@ __meta__ = {
 }
 
 [node name="exit" type="Button" parent="MainMenu/Control/VBoxContainer"]
-margin_top = 75.0
+margin_top = 92.0
 margin_right = 102.0
-margin_bottom = 83.0
+margin_bottom = 111.0
 custom_colors/font_color = Color( 1, 0.6, 0, 1 )
 custom_colors/font_color_hover = Color( 1, 0.909804, 0, 1 )
 custom_fonts/font = SubResource( 1 )
@@ -130,3 +133,8 @@ margin_right = 480.0
 margin_bottom = 270.0
 custom_fonts/font = SubResource( 3 )
 text = "©copyright 2023"
+
+[connection signal="pressed" from="MainMenu/Control/VBoxContainer/continue2" to="MainMenu/Control" method="_on_continue2_pressed"]
+[connection signal="pressed" from="MainMenu/Control/VBoxContainer/settings" to="MainMenu/Control" method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenu/Control/VBoxContainer/settings" to="MainMenu/Control/VBoxContainer/settings" method="_on_settings_pressed"]
+[connection signal="pressed" from="MainMenu/Control/VBoxContainer/exit" to="MainMenu/Control" method="_on_exit_pressed"]
