@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="ProjectAdam"
-run/main_scene="res://scene/character/Player.tscn"
+run/main_scene="res://scene/level/level1.tscn"
 config/icon="res://icon.png"
 
 [display]
