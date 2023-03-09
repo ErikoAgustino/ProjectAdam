@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scene/character/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Slime.tscn" type="PackedScene" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=3]
+
+[sub_resource type="NavigationPolygon" id=2]
+vertices = PoolVector2Array( 702, 8, 702, 576, 434, 574, 455, 8 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 455, 8, 434, 574, 702, 576, 702, 8 ) ]
+
+[sub_resource type="NavigationPolygon" id=3]
+vertices = PoolVector2Array( 788, 6, 785, 77, 702, 75, 703, 8 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 703, 8, 702, 75, 785, 77, 788, 6 ) ]
+
+[sub_resource type="NavigationPolygon" id=4]
+vertices = PoolVector2Array( 767, 473, 764, 569, 700, 567, 700, 471 )
+polygons = [ PoolIntArray( 0, 1, 2, 3 ) ]
+outlines = [ PoolVector2Array( 700, 471, 700, 567, 764, 569, 767, 473 ) ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 192.5 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Navigation2D" type="Navigation2D" parent="."]
+edge_connection_margin = 5.0
+
+[node name="Slime" parent="Navigation2D" instance=ExtResource( 2 )]
+position = Vector2( 817, 420 )
+path_to_player = NodePath("../../Player")
+
+[node name="NavigationPolygonInstance" type="NavigationPolygonInstance" parent="Navigation2D"]
+navpoly = SubResource( 2 )
+
+[node name="NavigationPolygonInstance2" type="NavigationPolygonInstance" parent="Navigation2D"]
+position = Vector2( 331, -2 )
+navpoly = SubResource( 2 )
+
+[node name="NavigationPolygonInstance3" type="NavigationPolygonInstance" parent="Navigation2D"]
+position = Vector2( -1, 0 )
+navpoly = SubResource( 3 )
+
+[node name="NavigationPolygonInstance4" type="NavigationPolygonInstance" parent="Navigation2D"]
+position = Vector2( 2, 3 )
+navpoly = SubResource( 4 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 735, 276 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="StaticBody2D"]
+position = Vector2( -2, -2 )
+scale = Vector2( 0.359375, 6.01563 )
+texture = ExtResource( 3 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+position = Vector2( 584, 153 )
