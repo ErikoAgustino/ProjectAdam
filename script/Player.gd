@@ -80,3 +80,5 @@ func _physics_process(delta):
 
 func _on_AttackTimer_timeout():
 	isNotAttacking = true
+func getPosition():
+	return position
