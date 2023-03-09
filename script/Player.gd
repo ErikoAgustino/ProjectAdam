@@ -26,6 +26,8 @@ var timerRemoved = false
 onready var progressBar = $ProgressBar
 onready var lineIndicator = $bow/Position2D/Icon
 
+var damage = 12
+
 func attack_mechanic():
 	# If attack button clicked
 	
@@ -149,3 +151,6 @@ func shoot(chargeType):
 	arrow.chargeType = chargeType
 	arrow.velocity = get_global_mouse_position() - arrow.position
 	get_parent().add_child(arrow)
+
+func iniPlayer():
+	pass # cuman treshold biar arrow ngga ilang pas nyentuh player.

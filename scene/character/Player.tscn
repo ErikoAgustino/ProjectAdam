@@ -461,7 +461,7 @@ states/sword3/node = SubResource( 25 )
 states/sword3/position = Vector2( 416, -59.776 )
 transitions = [ "idle", "run", SubResource( 26 ), "run", "idle", SubResource( 27 ), "idle", "sword1", SubResource( 28 ), "sword1", "sword2", SubResource( 32 ), "sword2", "sword3", SubResource( 33 ), "sword3", "idle", SubResource( 34 ), "idle", "dash", SubResource( 38 ), "dash", "run", SubResource( 39 ), "run", "dash", SubResource( 40 ), "dash", "idle", SubResource( 41 ), "sword1", "idle", SubResource( 42 ), "sword2", "idle", SubResource( 43 ), "run", "sword1", SubResource( 44 ) ]
 start_node = "idle"
-graph_offset = Vector2( 0, -123.183 )
+graph_offset = Vector2( 0, -90.927 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=53]
 
@@ -526,4 +526,5 @@ position = Vector2( 120, 0 )
 scale = Vector2( -3.851, 0.0504131 )
 texture = ExtResource( 10 )
 
+[connection signal="area_shape_entered" from="Hitbox" to="Hitbox" method="_on_Hitbox_area_shape_entered"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

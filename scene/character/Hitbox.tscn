@@ -12,3 +12,5 @@ script = ExtResource( 1 )
 position = Vector2( 20, 0 )
 shape = SubResource( 1 )
 disabled = true
+
+[connection signal="body_entered" from="." to="." method="_on_Hitbox_body_entered"]

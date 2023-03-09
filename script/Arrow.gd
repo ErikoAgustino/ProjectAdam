@@ -5,6 +5,8 @@ var speed = 0
 var maxtime = 1.2
 var invistime = 0.2
 var chargeType = ""
+var damage = 20
+var positionStart = Vector2(0, 0)
 
 func _ready():
 	var timer = Timer.new()
@@ -20,10 +22,14 @@ func _ready():
 	print(chargeType)
 	if(chargeType == "weak"):
 		speed = 200
+		damage = 1
 	if(chargeType == "medium"):
 		speed = 400
+		damage = 1
 	if(chargeType == "strong"):
 		speed = 1000
+		damage = 1
+	positionStart = self.position
 	
 	
 func on_timeout():
@@ -35,3 +41,12 @@ func on_timeout_invis():
 func _physics_process(delta):
 	var collision_info = move_and_collide(velocity.normalized() * delta * speed)
 	
+
+
+func _on_Area2D_body_entered(body):
+	if body.has_method("iniPlayer"):
+		pass
+	else:
+		if(body.has_method("kenaDMG")):
+			body.kenaDMG(damage,positionStart,speed)
+		self.queue_free()
