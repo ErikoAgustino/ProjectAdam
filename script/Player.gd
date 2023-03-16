@@ -107,8 +107,8 @@ func _physics_process(delta):
 		if(weapon.attackDelay < 0):
 			weapon.attackAnimationIndex = 0
 			weapon.isNotAttacking = true
-	
 	weapon.attackMechanic()
+#	playerMovement()
 	if !weapon.isNotAttackAnimation:
 		velocity = velocity.normalized() * attackMoveSpeed
 	velocity = move_and_slide(velocity)
