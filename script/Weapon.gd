@@ -36,7 +36,6 @@ func swordAttack():
 	velocity = Vector2.ZERO
 	attackAnimationIndex += 1
 	isNotAttackAnimation = true
-	#yield(get_tree().create_timer(0.5), "timeout")
 	print(attackAnimationIndex)
 	if attackAnimationIndex > 2:
 		attackAnimationIndex = 0

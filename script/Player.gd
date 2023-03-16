@@ -6,68 +6,15 @@ export (float) var dashSpeed = 1000
 export (float) var attackMoveSpeed = 50.0
 export (float) var dashDuration = 0.2
 var velocity = Vector2.ZERO
-var isNotAttacking = true
-onready var animation_player = $AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var playback = animation_tree.get('parameters/playback')
 onready var player = $Character
-onready var attackTimer = $AttackTimer
 onready var hitbox = get_node("WeaponContainer/Weapon/Hitbox")
-var attackAnimationIndex = 0
-#var attackAnimationName = 
-var swordAttackAnimation = ["sword1", "sword2", "sword3"]
-var bowAttackAnimation = "bow"
-var attackDelay = 0.5
-var isNotAttackAnimation = true
-var type = "sword"
 
 
 onready var dash = get_node("Dash")
 onready var weaponContainer = get_node("WeaponContainer")
 onready var weapon = weaponContainer.get_node("Weapon")
-
-#func swordAttack():
-#	# attack delay timer
-#	attackDelay = $AnimationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length + 0.5
-#	isNotAttacking = false
-#	# Move the player with attacking
-#	if player.flip_h == false:
-#		velocity.x += 1
-#	else:
-#		velocity.x -= 1
-#	velocity = velocity.normalized() * attackMoveSpeed
-#	# Check if animation frame is over
-#	if attackAnimationIndex == swordAttackAnimation.size():
-#		attackAnimationIndex = 0
-#	# Start timer and play the attack animation
-#	playback.travel(swordAttackAnimation[attackAnimationIndex])
-#	isNotAttackAnimation = false
-#	yield(get_tree().create_timer($AnimationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length - 0.1), "timeout")
-#	velocity = Vector2.ZERO
-#	attackAnimationIndex += 1
-#	isNotAttackAnimation = true
-#	#yield(get_tree().create_timer(0.5), "timeout")
-#	print(attackAnimationIndex)
-#	if attackAnimationIndex > 2:
-#		attackAnimationIndex = 0
-#
-#func bowAttack():
-#	velocity = Vector2.ZERO
-#	isNotAttacking = false
-#	playback.travel("bow")
-#	isNotAttackAnimation = true
-#
-#func attackMechanic():
-#	if Input.is_action_just_pressed("attack") && isNotAttackAnimation:
-#		var mousePos = get_global_mouse_position()
-#		weaponContainer.look_at(mousePos)
-#		match type:
-#			"bow": 
-#				bowAttack()
-#			"sword": 
-#				swordAttack()
-			
-	
 
 func playerMovement():
 	velocity = Vector2.ZERO
