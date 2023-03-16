@@ -4,6 +4,7 @@ export(int) var lives: int=2
 export(int) var hp: int=100
 var timer=0
 var maxSpeed := 0.0
+
 var _velocity := Vector2.ZERO
 onready var _agent: NavigationAgent2D = $NavigationAgent2D
 onready var _player: = get_node(path_to_player)
@@ -24,4 +25,5 @@ func spawn_damage (damage:int):
 	var indicator = spawn_effect(damage_indc)
 	if indicator :
 		indicator.label.text = str(damage)
+
 
