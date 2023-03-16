@@ -1,0 +1,16 @@
+[gd_scene format=2]
+
+[node name="Agility" type="HBoxContainer"]
+margin_top = 22.0
+margin_bottom = 22.0
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+text = "Agility"
+
+[node name="Point" type="Label" parent="."]
+margin_left = 44.0
+margin_right = 52.0
+margin_bottom = 14.0
+text = "5"

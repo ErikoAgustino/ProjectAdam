@@ -8,6 +8,7 @@ onready var animationTree = get_node("../../AnimationTree")
 onready var playback = animationTree.get('parameters/playback')
 onready var player = get_parent().get_parent().get_node("Character")
 onready var hitbox = get_node("WeaponContainer/Weapon/Hitbox")
+onready var weapons = $Equipment.weapon_stat
 var attackAnimationIndex = 0
 var swordAttackAnimation = ["sword1", "sword2", "sword3"]
 var bowAttackAnimation = "bow"

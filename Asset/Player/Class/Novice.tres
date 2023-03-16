@@ -1,0 +1,14 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://script/basestats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Novice"
+level = 1
+xp = 0
+xpt = 0
+xpreq = 0
+strenght = 5
+agility = 5
+intelligence = 5

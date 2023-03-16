@@ -5,8 +5,14 @@ export (float) var moveSpeed = 200.0
 export (float) var dashSpeed = 1000
 export (float) var attackMoveSpeed = 50.0
 export (float) var dashDuration = 0.2
+export var baseweaponsword : Resource
+export var baseweaponbow : Resource
+export var baseweaponorb : Resource
+export var basestats : Resource
 var velocity = Vector2.ZERO
 var isNotAttacking = true
+onready var weapons = $WeaponContainer/Weapon.weapons
+onready var class_stat = $Character/Class.stats
 onready var animation_player = $AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var playback = animation_tree.get('parameters/playback')
@@ -112,4 +118,13 @@ func _physics_process(delta):
 	if !weapon.isNotAttackAnimation:
 		velocity = velocity.normalized() * attackMoveSpeed
 	velocity = move_and_slide(velocity)
+	if (Input.is_action_just_pressed("ui_select")):
+		pass
+		
+func getAttack():
+	return (weapons.strenght+class_stat.strenght)
+	
+func _ready():
+	pass
+
 

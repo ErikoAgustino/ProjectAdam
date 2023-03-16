@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://script/Status.gd" type="Script" id=1]
+[ext_resource path="res://script/Class.gd" type="Script" id=2]
+[ext_resource path="res://script/basestats.gd" type="Script" id=3]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 3 )
+name = "Novice"
+level = 1
+xp = 0
+xpt = 0
+xpreq = 0
+strenght = 5
+agility = 5
+intelligence = 5
+
+[node name="Class" type="Node"]
+script = ExtResource( 2 )
+basestats = SubResource( 1 )
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource( 1 )

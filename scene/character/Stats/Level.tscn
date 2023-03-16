@@ -1,0 +1,37 @@
+[gd_scene format=2]
+
+[node name="Level" type="VBoxContainer"]
+margin_top = 18.0
+margin_right = 88.0
+margin_bottom = 18.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 88.0
+margin_bottom = 14.0
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+margin_right = 34.0
+margin_bottom = 14.0
+text = "Level"
+
+[node name="Poin" type="Label" parent="HBoxContainer"]
+margin_left = 38.0
+margin_right = 46.0
+margin_bottom = 14.0
+text = "1"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+margin_top = 18.0
+margin_right = 88.0
+margin_bottom = 32.0
+
+[node name="Label" type="Label" parent="HBoxContainer2"]
+margin_right = 66.0
+margin_bottom = 14.0
+text = "Expirience"
+
+[node name="Poin" type="Label" parent="HBoxContainer2"]
+margin_left = 70.0
+margin_right = 78.0
+margin_bottom = 14.0
+text = "0"

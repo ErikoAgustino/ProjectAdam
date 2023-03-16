@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://script/baseweapon.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+weapontype = "Orb"
+quality = "Common"
+name = ""
+strenght = 2
+agility = 2
+intelligence = 3
+strreq = 0
+agireq = 0
+intreq = 0

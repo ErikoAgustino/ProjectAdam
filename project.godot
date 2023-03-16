@@ -8,11 +8,50 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Class",
+"language": "GDScript",
+"path": "res://script/Class.gd"
+}, {
+"base": "Node",
+"class": "Equipments",
+"language": "GDScript",
+"path": "res://script/Equipment.gd"
+}, {
+"base": "HBoxContainer",
+"class": "UIStats",
+"language": "GDScript",
+"path": "res://script/UIStats.gd"
+}, {
+"base": "Resource",
+"class": "basestats",
+"language": "GDScript",
+"path": "res://script/basestats.gd"
+}, {
+"base": "Resource",
+"class": "baseweapon",
+"language": "GDScript",
+"path": "res://script/baseweapon.gd"
+} ]
+_global_script_class_icons={
+"Class": "",
+"Equipments": "",
+"UIStats": "",
+"basestats": "",
+"baseweapon": ""
+}
+
 [application]
 
 config/name="ProjectAdam"
 run/main_scene="res://scene/level/level1.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Status="*res://script/Status.gd"
+Weapons="*res://script/weapons.gd"
 
 [display]
 
