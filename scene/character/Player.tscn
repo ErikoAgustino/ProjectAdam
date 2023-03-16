@@ -1,5 +1,6 @@
 [gd_scene load_steps=41 format=2]
 
+
 [ext_resource path="res://Asset/Player/char_template_idle.png" type="Texture" id=1]
 [ext_resource path="res://Script/Player.gd" type="Script" id=2]
 [ext_resource path="res://Asset/Player/char_template_walk.png" type="Texture" id=3]
@@ -8,9 +9,11 @@
 [ext_resource path="res://Asset/Weapon/Sword/fx/sword-slash-3.png" type="Texture" id=6]
 [ext_resource path="res://scene/character/Dash.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scene/character/Hitbox.tscn" type="PackedScene" id=8]
+
 [ext_resource path="res://Asset/Weapon/Sword/fx/sword-slash-2.png" type="Texture" id=9]
 [ext_resource path="res://script/Weapon.gd" type="Script" id=10]
 [ext_resource path="res://Asset/Weapon/Bow/bow-animation.png" type="Texture" id=11]
+
 
 [sub_resource type="Animation" id=45]
 length = 0.001
@@ -1129,6 +1132,7 @@ graph_offset = Vector2( 51.2091, 6.02301 )
 scale = Vector2( 2, 2 )
 z_index = 1
 script = ExtResource( 2 )
+
 
 [node name="Character" type="Sprite" parent="."]
 texture = ExtResource( 1 )
