@@ -4,6 +4,9 @@
 
 [node name="MainMenu" type="Control"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="NewGameButton" type="Button" parent="."]
 margin_right = 82.0
