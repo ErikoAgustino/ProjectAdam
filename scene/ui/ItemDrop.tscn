@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://item_icons/Slime Potion.png" type="Texture" id=1]
+[ext_resource path="res://images/item_slot_selected_background.png" type="Texture" id=1]
 [ext_resource path="res://ItemDrop.gd" type="Script" id=2]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4.41238, 4.98715 )
