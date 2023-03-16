@@ -22,5 +22,5 @@ position = Vector2( 193, 150 )
 [node name="Camera" parent="Player" instance=ExtResource( 5 )]
 
 [node name="Slime" parent="." instance=ExtResource( 4 )]
-position = Vector2( 411, 213 )
+position = Vector2( 358, 198 )
 path_to_player = NodePath("../Player")

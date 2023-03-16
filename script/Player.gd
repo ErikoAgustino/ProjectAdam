@@ -73,7 +73,18 @@ onready var weapon = weaponContainer.get_node("Weapon")
 #			"sword": 
 #				swordAttack()
 			
-	
+var attackDirection = Vector2()
+
+func attackDirection():
+	attackDirection = Vector2()
+	if Input.is_action_pressed("down"):
+		attackDirection.y = 1.0
+	if Input.is_action_pressed("up"):
+		attackDirection.y = -1.0
+	if Input.is_action_pressed("right"):
+		attackDirection.x = 1.0
+	if Input.is_action_pressed("left"):
+		attackDirection.x = -1.0
 
 func playerMovement():
 	velocity = Vector2.ZERO
@@ -89,7 +100,7 @@ func playerMovement():
 		velocity.x -= 1.0
 		player.flip_h = true
 #		hitbox.flip_h(true)
-		
+
 	# Move and animation
 	if velocity == Vector2.ZERO:
 		playback.travel("idle")
@@ -106,15 +117,16 @@ func playerMovement():
 		
 func _physics_process(delta):
 	if(weapon.isNotAttacking):
-		weapon.attackDelay = 0.8
+		weapon.attackDelay = 0.3
 		playerMovement()
 	else:
 		weapon.attackDelay -= delta
 		if(weapon.attackDelay < 0):
 			weapon.attackAnimationIndex = 0
 			weapon.isNotAttacking = true
-	
-	weapon.attackMechanic()
+	attackDirection()
+	weapon.attackMechanic(position + (attackDirection.normalized() * 50))
+#	playerMovement()
 	if !weapon.isNotAttackAnimation:
 		velocity = velocity.normalized() * attackMoveSpeed
 	velocity = move_and_slide(velocity)

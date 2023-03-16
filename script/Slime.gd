@@ -1,30 +1,30 @@
-extends KinematicBody2D
-export var path_to_player := NodePath()
-export(int) var lives: int=2
-export(int) var hp: int=100
-var timer=0
-var maxSpeed := 0.0
+extends "res://script/enemy.gd"
 
-var _velocity := Vector2.ZERO
-onready var _agent: NavigationAgent2D = $NavigationAgent2D
-onready var _player: = get_node(path_to_player)
-onready var _timer: Timer = $Timer
-const damage_indc = preload("res://scene/ui/Damage Indicator.tscn")
+
 func _ready() ->void :
 	_agent.set_target_location(_player.global_position)
 	_timer.connect("timeout",self,"_update_pathfinding")
-
+func _physics_process(delta: float )-> void:
+	timer+=delta
+	if _agent.is_navigation_finished():
+		return
 		
-func spawn_effect(EFFECT: PackedScene, effect_position: Vector2 = global_position):
-	if EFFECT:
-		var effect = EFFECT.instance()
-		get_tree().current_scene.add_child(effect)
-		effect.global_position = effect_position
-		return effect
-func spawn_damage (damage:int):
-	var indicator = spawn_effect(damage_indc)
-	if indicator :
-		indicator.label.text = str(damage)
+		
+	var direction := global_position.direction_to(_agent.get_next_location())
+	
+	var desired_velocity := direction * maxSpeed
+	var steering := (desired_velocity - _velocity) * delta * 4.0
+	_velocity += steering
+	
+	_velocity = move_and_slide(_velocity)
+	if (timer > 0.5):
+		jump()
+		if (direction.x >0):
+			get_node("AnimatedSprite").flip_h = true
+		if (direction.x <0): 
+			get_node("AnimatedSprite").flip_h = false
+	
+	
 
 func _update_pathfinding() -> void:
 	_agent.set_target_location(_player.global_position)
@@ -61,8 +61,7 @@ func jump():
 #	pass
 
 func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	hp-= _player.getAttack()
-	print(hp)
+	hp-= 50
 	if(hp<=0):
 		var live=self.lives
 
@@ -71,7 +70,7 @@ func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape
 		slime.path_to_player = self.path_to_player
 		slime.lives=live-1
 		slime.position = self.get_position()
-		
+		slime.hp=100
 		get_parent().add_child(slime)
 		print("spawn")
 		var slime2 = scene.instance()
@@ -84,10 +83,11 @@ func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape
 		get_parent().remove_child(self)
 		queue_free()
 		print ("mati")
+	else:
+		spawn_damage(50)
+		print ("kena")
 		
 	if (lives<=0):
 		get_parent().remove_child(self)
 		queue_free()
-func _on_Slime_lives():
-	pass # Replace with function body.
-
+		

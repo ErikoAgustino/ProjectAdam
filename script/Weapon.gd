@@ -18,7 +18,7 @@ var type = "sword"
 
 func swordAttack():
 	# attack delay timer
-	attackDelay = animationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length + 0.5
+	attackDelay = animationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length + 0.05
 	isNotAttacking = false
 	var attackMoveSpeed = 50.0
 	# Move the player with attacking
@@ -33,12 +33,13 @@ func swordAttack():
 	# Start timer and play the attack animation
 	playback.travel(swordAttackAnimation[attackAnimationIndex])
 	isNotAttackAnimation = false
+	
 	yield(get_tree().create_timer(animationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length - 0.1), "timeout")
 	velocity = Vector2.ZERO
 	attackAnimationIndex += 1
 	isNotAttackAnimation = true
 	#yield(get_tree().create_timer(0.5), "timeout")
-	print(attackAnimationIndex)
+#	print(attackAnimationIndex)
 	if attackAnimationIndex > 2:
 		attackAnimationIndex = 0
 			
@@ -48,10 +49,10 @@ func bowAttack():
 	playback.travel("bow")
 	isNotAttackAnimation = true
 
-func attackMechanic():
+func attackMechanic(temp):
 	if Input.is_action_just_pressed("attack") && isNotAttackAnimation:
-		var mousePos = get_global_mouse_position()
-		get_parent().look_at(mousePos)
+#		var mousePos = get_global_mouse_position()
+		get_parent().look_at(temp)
 		match type:
 			"bow": 
 				bowAttack()
@@ -59,4 +60,5 @@ func attackMechanic():
 				swordAttack()
 
 func _on_Hitbox_body_entered(body):
-	print(body)
+	#print(body)
+	pass
