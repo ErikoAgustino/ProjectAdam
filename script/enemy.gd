@@ -13,6 +13,8 @@ onready var _timer: Timer = $Timer
 
 onready var progressBar = $ProgressBar
 var status = ""
+var damage = 1
+var positionStart = Vector2(0, 0)
 
 func _ready() ->void :
 	progressBar.value = hp
@@ -101,3 +103,10 @@ func kenaDMG(dmg,pos_,speed=500):
 	if progressBar.value <= 0:
 		self.queue_free()
 	
+func iniLawan():
+	pass # cuman treshold biar player tau ini lawan.
+	
+func getDamage():
+	return damage
+func getPosition():
+	return self.position

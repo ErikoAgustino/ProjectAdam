@@ -18,4 +18,3 @@ func _on_Hitbox_body_entered(body):
 	else:
 		if(body.has_method("kenaDMG")):
 			body.kenaDMG(damage,positionStart)
-		self.queue_free()

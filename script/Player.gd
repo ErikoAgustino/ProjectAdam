@@ -20,17 +20,21 @@ var timerCharge = 2
 onready var dash = get_node("Dash")
 
 var timer = Timer.new()
+var invincibleTimer = Timer.new()
+var stunnedTimer = Timer.new()
 var rangeOnHold = false
 var maxCharge = false
 var timerRemoved = false
 onready var progressBar = $ProgressBar
 onready var lineIndicator = $bow/Position2D/Icon
-
+onready var progressBar2 = $Health_test
 var damage = 12
-
+var invincibleTimerTime = 1.5
+var invincibleFrame = false
+var isStunned = false
 func attack_mechanic():
-	# If attack button clicked
 	
+	# If attack button clicke
 	if Input.is_action_just_pressed("attack"):
 		isNotAttacking = false
 		# Move the player with attacking
@@ -105,6 +109,14 @@ func attack_mechanic():
 		progressBar.visible = false
 		lineIndicator.visible = false
 		
+	if invincibleTimer.time_left <= 0.1 and invincibleFrame == true:
+		invincibleFrame = false
+		invincibleTimer.stop()
+		remove_child(invincibleTimer)
+		$CollisionShape2D.set_deferred("disabled", false)
+		$Player_hitbox.set_deferred("monitoring", true)
+		print("invicibility habis")
+		
 func player_movement():
 	velocity = Vector2.ZERO
 	if Input.is_action_pressed("down"):
@@ -137,9 +149,16 @@ func player_movement():
 		
 func _physics_process(delta):
 	$bow.look_at(get_viewport().get_mouse_position())
-	if(isNotAttacking):
-		player_movement()
-	attack_mechanic()
+	if isStunned == false:
+		if(isNotAttacking):
+			player_movement()
+		attack_mechanic()
+	else:
+		if stunnedTimer.time_left <= 0.2:
+			isStunned = false
+			stunnedTimer.stop()
+			remove_child(stunnedTimer)
+			print("stun habis")
 
 func _on_AttackTimer_timeout():
 	isNotAttacking = true
@@ -151,6 +170,58 @@ func shoot(chargeType):
 	arrow.chargeType = chargeType
 	arrow.velocity = get_global_mouse_position() - arrow.position
 	get_parent().add_child(arrow)
+	
+	
+func knockback(forceValue):
+	velocity -= forceValue
+	move_and_slide(velocity)
+	
+	
 
 func iniPlayer():
 	pass # cuman treshold biar arrow ngga ilang pas nyentuh player.
+	
+func kenaDMG(dmg,pos_,speed=3000):
+	progressBar2.value -= dmg
+	var forceValue = Vector2(0,0)
+	if speed > 7500:
+		speed = 7500
+		
+	if pos_.x - self.position.x >= 0: 
+		forceValue.x = speed # knockback kekanan
+	else:
+		forceValue.x = -speed # knockback kekiri
+		
+	if pos_.y - self.position.y >= 0:
+		forceValue.y = speed # knockback keatas
+	else: 
+		forceValue.y = -speed # knockback kebawah
+	knockback(forceValue)
+	
+	invincibleFrame = true
+	invincibleTimer = Timer.new()
+	$CollisionShape2D.set_deferred("disabled", true)
+	$Player_hitbox.set_deferred("monitoring", false)
+	invincibleTimer.wait_time = invincibleTimerTime
+	invincibleTimer.autostart = true
+	add_child(invincibleTimer)
+	stunned(0.6)
+	
+	
+
+func _on_Player_hitbox_body_entered(body):
+	print(body)
+	if body.has_method("iniPlayer"):
+		pass
+	else:
+		if(body.has_method("iniLawan")):
+			progressBar2.value -= body.getDamage()
+			kenaDMG(body.getDamage(),body.getPosition())
+		
+func stunned(duration):
+	duration += 0.2
+	stunnedTimer = Timer.new()
+	stunnedTimer.wait_time = duration
+	stunnedTimer.autostart = true
+	add_child(stunnedTimer)
+	isStunned = true
