@@ -61,7 +61,7 @@ func jump():
 #	pass
 
 func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape_index):
-	hp-= 50
+	hp-= _player.getAttack()
 	if(hp<=0):
 		var live=self.lives
 
@@ -84,7 +84,7 @@ func _on_Area2D_area_shape_entered(area_rid, area, area_shape_index, local_shape
 		queue_free()
 		print ("mati")
 	else:
-		spawn_damage(50)
+		spawn_damage(_player.getAttack())
 		print ("kena")
 		
 	if (lives<=0):
