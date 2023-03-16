@@ -59,3 +59,4 @@ func _physics_process(delta):
 	if !weapon.isNotAttackAnimation:
 		velocity = velocity.normalized() * attackMoveSpeed
 	velocity = move_and_slide(velocity)
+

@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="ProjectAdam"
-run/main_scene="res://scene/character/Player.tscn"
+run/main_scene="res://scene/level/level1.tscn"
 config/icon="res://icon.png"
 
 [display]
@@ -26,6 +26,13 @@ window/stretch/aspect="keep"
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true
+
+[importer_defaults]
+
+texture={
+"detect_3d": false,
+"flags/filter": false
+}
 
 [input]
 
