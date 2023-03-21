@@ -59,5 +59,4 @@ func attackMechanic(temp):
 				swordAttack()
 
 func _on_Hitbox_body_entered(body):
-	#print(body)
 	pass

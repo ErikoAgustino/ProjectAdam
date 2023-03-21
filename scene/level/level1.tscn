@@ -19,5 +19,5 @@ tile_data = PoolIntArray( -196594, 0, 65541, -196593, 0, 196608, -196592, 0, 196
 position = Vector2( 193, 150 )
 
 [node name="Slime" parent="." instance=ExtResource( 4 )]
-position = Vector2( 358, 198 )
+position = Vector2( 1553, 204 )
 path_to_player = NodePath("../Player")
