@@ -6,6 +6,7 @@
 [ext_resource path="res://scene/enemy/Slime.tscn" type="PackedScene" id=4]
 
 [node name="Level1" type="Node2D"]
+position = Vector2( 0, -1 )
 
 [node name="Floor_Stone" parent="." instance=ExtResource( 2 )]
 bake_navigation = true
