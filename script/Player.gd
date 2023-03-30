@@ -30,7 +30,8 @@ onready var lineIndicator = $bow/Position2D/Icon
 onready var progressBar2 = $Health_test
 var damage = 12
 var invincibleTimerTime = 1.5
-var invincibleFrame = false
+var stunnedTimerTime = 0.6
+var isInvincible = false
 var isStunned = false
 func attack_mechanic():
 	
@@ -109,13 +110,7 @@ func attack_mechanic():
 		progressBar.visible = false
 		lineIndicator.visible = false
 		
-	if invincibleTimer.time_left <= 0.1 and invincibleFrame == true:
-		invincibleFrame = false
-		invincibleTimer.stop()
-		remove_child(invincibleTimer)
-		$CollisionShape2D.set_deferred("disabled", false)
-		$Player_hitbox.set_deferred("monitoring", true)
-		print("invicibility habis")
+
 		
 func player_movement():
 	velocity = Vector2.ZERO
@@ -159,7 +154,16 @@ func _physics_process(delta):
 			stunnedTimer.stop()
 			remove_child(stunnedTimer)
 			print("stun habis")
-
+			
+		
+	if invincibleTimer.time_left <= 0.1 and isInvincible == true:
+		isInvincible = false
+		invincibleTimer.stop()
+		remove_child(invincibleTimer)
+		$CollisionShape2D.set_deferred("disabled", false)
+		$Player_hitbox.set_deferred("monitoring", true)
+		print("invicibility habis")
+		
 func _on_AttackTimer_timeout():
 	isNotAttacking = true
 
@@ -198,14 +202,8 @@ func kenaDMG(dmg,pos_,speed=3000):
 		forceValue.y = -speed # knockback kebawah
 	knockback(forceValue)
 	
-	invincibleFrame = true
-	invincibleTimer = Timer.new()
-	$CollisionShape2D.set_deferred("disabled", true)
-	$Player_hitbox.set_deferred("monitoring", false)
-	invincibleTimer.wait_time = invincibleTimerTime
-	invincibleTimer.autostart = true
-	add_child(invincibleTimer)
-	stunned(0.6)
+	invincibility(invincibleTimerTime)
+	stunned(stunnedTimerTime)
 	
 	
 
@@ -225,3 +223,12 @@ func stunned(duration):
 	stunnedTimer.autostart = true
 	add_child(stunnedTimer)
 	isStunned = true
+
+func invincibility(duration):
+	isInvincible = true
+	invincibleTimer = Timer.new()
+	$CollisionShape2D.set_deferred("disabled", true)
+	$Player_hitbox.set_deferred("monitoring", false)
+	invincibleTimer.wait_time = duration
+	invincibleTimer.autostart = true
+	add_child(invincibleTimer)
