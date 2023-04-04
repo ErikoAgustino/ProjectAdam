@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ProjectAdam"
-run/main_scene="res://scene/level/level1.tscn"
+run/main_scene="res://scene/level/level_changer.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -103,6 +103,11 @@ dash={
 attack={
 "deadzone": 0.5,
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+change_scene={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":69,"unicode":0,"echo":false,"script":null)
  ]
 }
 
