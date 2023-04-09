@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/player_spritesheet.png-5cf930f345584f38953b2f246e6fe571.stex"
+path="res://.import/item_slot_empty_background.png-dbe8018237531a3aeaab844d157fd07a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scene/inventory/player_spritesheet.png"
-dest_files=[ "res://.import/player_spritesheet.png-5cf930f345584f38953b2f246e6fe571.stex" ]
+source_file="res://Asset/Texture/item_slot_empty_background.png"
+dest_files=[ "res://.import/item_slot_empty_background.png-dbe8018237531a3aeaab844d157fd07a.stex" ]
 
 [params]
 

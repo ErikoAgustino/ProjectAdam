@@ -1036,18 +1036,11 @@ script = ExtResource( 2 )
 [node name="ProgressBar" type="ProgressBar" parent="."]
 visible = false
 margin_left = -14.0
-margin_top = -50.0
+margin_top = -35.0
 margin_right = 13.0
-margin_bottom = -40.0
+margin_bottom = -25.0
 max_value = 2.0
 percent_visible = false
-
-[node name="Health" type="ProgressBar" parent="."]
-margin_left = -48.0
-margin_top = -37.0
-margin_right = 53.0
-margin_bottom = -23.0
-value = 90.0
 
 [node name="Character" type="Sprite" parent="."]
 texture = ExtResource( 1 )

@@ -27,8 +27,8 @@ config/icon="res://icon.png"
 [autoload]
 
 PlayerStatus="*res://script/PlayerStatus.gd"
-PlayerInventory="*res://scene/inventory/PlayerInventory.gd"
-JsonData="*res://scene/inventory/JSONData.gd"
+PlayerInventory="*res://script/PlayerInventory.gd"
+JsonData="*res://script/JSONData.gd"
 
 [display]
 

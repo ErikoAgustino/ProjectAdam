@@ -15,6 +15,9 @@ var attackDelay = 0.5
 var isNotAttackAnimation = true
 var type = "sword"
 
+func _ready():
+	PlayerInventory.connect("weaponChanged", self, "updateTexture")
+
 func swordAttack():
 	# attack delay timer
 	attackDelay = animationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length + 0.05
@@ -66,6 +69,10 @@ func attackMechanic(attackDirection):
 			"sword": 
 				swordAttack()
 
+func updateTexture(item):
+	texture = item.texture
+	flip_h = true
+
 func _on_Hitbox_body_entered(body):
 	if(body.has_method("takesDamage")):
-		body.takesDamage(50, global_position)
+		body.takesDamage((PlayerStatus.strenght + PlayerInventory.equips[0][3]) * 25, global_position)

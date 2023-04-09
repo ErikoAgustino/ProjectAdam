@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Brown Boots.png-8777d1e5dc39bee17f65fdee8be139fe.stex"
+path="res://.import/Blue Jeans.png-5538ca4be65f597dd43e45d604f72e61.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scene/inventory/Brown Boots.png"
-dest_files=[ "res://.import/Brown Boots.png-8777d1e5dc39bee17f65fdee8be139fe.stex" ]
+source_file="res://Asset/Texture/Blue Jeans.png"
+dest_files=[ "res://.import/Blue Jeans.png-5538ca4be65f597dd43e45d604f72e61.stex" ]
 
 [params]
 

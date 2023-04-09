@@ -1,8 +1,6 @@
 extends Node2D
 
-
-const SlotClass = preload("res://Slot.gd")
-
+const SlotClass = preload("res://script/Slot.gd")
 onready var hotbar_slots = $HotbarSlots
 onready var active_item_label = $ActiveItemLabel
 onready var slots = hotbar_slots.get_children()

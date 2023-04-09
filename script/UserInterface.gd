@@ -1,4 +1,5 @@
 extends CanvasLayer
+
 var holding_item = null
 
 func _input(event):

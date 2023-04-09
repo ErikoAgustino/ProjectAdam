@@ -1,22 +1,22 @@
 extends Panel
 
-var default_tex = preload("res://item_slot_default_background.png")
-var empty_tex = preload("res://item_slot_empty_background.png")
-var selected_tex = preload("res://images/item_slot_selected_background.png")
+var default_tex = preload("res://Asset/Texture/item_slot_default_background.png")
+var empty_tex = preload("res://Asset/Texture/item_slot_empty_background.png")
+var selected_tex = preload("res://Asset/Texture/item_slot_selected_background.png")
 
 var default_style: StyleBoxTexture = null
 var empty_style: StyleBoxTexture = null
 var selected_style: StyleBoxTexture = null
 
-var ItemClass = preload("res://Item.tscn")
+var ItemClass = preload("res://scene/inventory/Item.tscn")
 var item = null
 var slot_index
 
 enum SlotType {
 	HOTBAR = 0,
 	INVENTORY,
+	SWORD,
 	SHIRT,
-	PANTS,
 	SHOES,
 }
 
@@ -57,12 +57,11 @@ func putIntoSlot(new_item):
 	add_child(item)
 	refresh_style()
 	
-func initialize_item(item_name, item_quantity):
+func initialize_item(arrayItem):
 	if item == null:
 		item = ItemClass.instance()
+		item.set_item(arrayItem)
 		add_child(item)
-		item.set_item(item_name, item_quantity)
 	else:
-		item.set_item(item_name, item_quantity)
+		item.set_item(arrayItem)
 	refresh_style()
-

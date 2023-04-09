@@ -1,8 +1,7 @@
-
 {
   "Tree Branch": {
-    "ItemCategory": "Resource",
-    "StackSize": 99,
+    "ItemCategory": "Sword",
+    "StackSize": 1,
     "Description": "A sturdy tree branch that can be used for crafting."
   },
   "Slime Potion": {
@@ -15,7 +14,7 @@
   "Iron Sword": {
     "ItemCategory": "Sword",
     "ItemAttack": 3,
-    "ItemSpeed": 0.75, 
+    "ItemSpeed": 0.75,
     "StackSize": 1,
     "Description": "Quite a rusty sword, but should be able to get the job done."
   },

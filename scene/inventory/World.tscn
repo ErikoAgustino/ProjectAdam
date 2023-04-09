@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://script/Pause.gd" type="Script" id=1]
 [ext_resource path="res://Fonts/m5x7.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://scene/inventory/UserInterface.gd" type="Script" id=3]
+[ext_resource path="res://script/UserInterface.gd" type="Script" id=3]
 [ext_resource path="res://scene/inventory/Inventory.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scene/inventory/ItemDrop.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scene/inventory/Hotbar.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
@@ -103,41 +102,6 @@ script = ExtResource( 3 )
 visible = false
 
 [node name="Hotbar" parent="UserInterface" instance=ExtResource( 6 )]
-
-[node name="ItemDrop" parent="." instance=ExtResource( 5 )]
-position = Vector2( 167.538, 79.2855 )
-collision_layer = 2147483652
-collision_mask = 2
-
-[node name="ItemDrop2" parent="." instance=ExtResource( 5 )]
-position = Vector2( 126.007, 154.795 )
-collision_layer = 2147483652
-collision_mask = 2
-
-[node name="ItemDrop3" parent="." instance=ExtResource( 5 )]
-position = Vector2( 394.539, 100.995 )
-collision_layer = 2147483652
-collision_mask = 2
-
-[node name="ItemDrop4" parent="." instance=ExtResource( 5 )]
-position = Vector2( 312.422, 148.66 )
-collision_layer = 2147483652
-collision_mask = 2
-
-[node name="ItemDrop5" parent="." instance=ExtResource( 5 )]
-position = Vector2( 351.121, 166.122 )
-collision_layer = 2147483652
-collision_mask = 2
-
-[node name="ItemDrop6" parent="." instance=ExtResource( 5 )]
-position = Vector2( 232.665, 176.033 )
-collision_layer = 2147483652
-collision_mask = 2
-
-[node name="ItemDrop7" parent="." instance=ExtResource( 5 )]
-position = Vector2( 442.205, 182.168 )
-collision_layer = 2147483652
-collision_mask = 2
 
 [connection signal="pressed" from="GUIGameplay/Pause/CenterContainer/VBoxContainer/resume" to="GUIGameplay/Pause" method="_on_continue_pressed"]
 [connection signal="pressed" from="GUIGameplay/Pause/CenterContainer/VBoxContainer/settings" to="GUIGameplay/Pause" method="_on_settings_pressed"]

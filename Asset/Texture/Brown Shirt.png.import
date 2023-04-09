@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ShoesOverlay.png-ab2fe9ee1654d313f171c724dc94c8ec.stex"
+path="res://.import/Brown Shirt.png-a71fa5acbf13cde7515d584619243969.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scene/inventory/ShoesOverlay.png"
-dest_files=[ "res://.import/ShoesOverlay.png-ab2fe9ee1654d313f171c724dc94c8ec.stex" ]
+source_file="res://Asset/Texture/Brown Shirt.png"
+dest_files=[ "res://.import/Brown Shirt.png-a71fa5acbf13cde7515d584619243969.stex" ]
 
 [params]
 

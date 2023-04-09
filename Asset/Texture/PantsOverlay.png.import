@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/item_slot_selected_background.png-8ec12278ed26919f73954890b8589589.stex"
+path="res://.import/PantsOverlay.png-f383057f2d4bcbd6f4ba900fef8c0813.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scene/inventory/item_slot_selected_background.png"
-dest_files=[ "res://.import/item_slot_selected_background.png-8ec12278ed26919f73954890b8589589.stex" ]
+source_file="res://Asset/Texture/PantsOverlay.png"
+dest_files=[ "res://.import/PantsOverlay.png-f383057f2d4bcbd6f4ba900fef8c0813.stex" ]
 
 [params]
 

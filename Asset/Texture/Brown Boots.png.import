@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Brown Shirt.png-d9b339d88eebb1175a179e3df763a119.stex"
+path="res://.import/Brown Boots.png-1633f1b8791f73c180fe5abaab1fcbd8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scene/inventory/Brown Shirt.png"
-dest_files=[ "res://.import/Brown Shirt.png-d9b339d88eebb1175a179e3df763a119.stex" ]
+source_file="res://Asset/Texture/Brown Boots.png"
+dest_files=[ "res://.import/Brown Boots.png-1633f1b8791f73c180fe5abaab1fcbd8.stex" ]
 
 [params]
 

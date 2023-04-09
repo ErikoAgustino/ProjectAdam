@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/item_slot_default_background.png-45ab27678ca5179e5b43418cd339d91f.stex"
+path="res://.import/hotbar_background.png-baf5d67d1fd19a93270b0414e19bef77.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scene/inventory/item_slot_default_background.png"
-dest_files=[ "res://.import/item_slot_default_background.png-45ab27678ca5179e5b43418cd339d91f.stex" ]
+source_file="res://Asset/Texture/hotbar_background.png"
+dest_files=[ "res://.import/hotbar_background.png-baf5d67d1fd19a93270b0414e19bef77.stex" ]
 
 [params]
 

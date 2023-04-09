@@ -71,4 +71,4 @@ func takesDamage(dmg, attackPosition):
 
 func _on_Area2D_body_entered(body):
 	if(body.has_method("takesDamage")):
-		body.takesDamage(50, global_position)
+		body.takesDamage(10, global_position)

@@ -1,6 +1,6 @@
 tool
 
-extends Node
+extends Node2D
 
 export(String, "Common", "Rare", "Legendary") var quality = "Common" 
 export var names : String

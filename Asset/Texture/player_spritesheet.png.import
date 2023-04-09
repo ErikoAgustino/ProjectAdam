@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/default_inventory_background.png-4e2d5550d6983f9308369106f363fb39.stex"
+path="res://.import/player_spritesheet.png-fded8905f613a52867d47770128b67d8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://scene/inventory/default_inventory_background.png"
-dest_files=[ "res://.import/default_inventory_background.png-4e2d5550d6983f9308369106f363fb39.stex" ]
+source_file="res://Asset/Texture/player_spritesheet.png"
+dest_files=[ "res://.import/player_spritesheet.png-fded8905f613a52867d47770128b67d8.stex" ]
 
 [params]
 

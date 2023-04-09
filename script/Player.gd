@@ -153,8 +153,7 @@ func knockback(attackPosition):
 	$Tween.start()
 	
 func takesDamage(dmg, attackPosition):
-	health.value -= dmg
-	
+	PlayerStatus.changeHealth(PlayerStatus.currentHealth - dmg)
 	knockback(attackPosition)
 	
 #	invincibleFrame = true
