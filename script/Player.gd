@@ -11,7 +11,7 @@ onready var animation_player = $AnimationPlayer
 onready var animation_tree = $AnimationTree
 onready var playback = animation_tree.get('parameters/playback')
 onready var player = $Character
-onready var attackTimer = $AttackTimer
+#onready var attackTimer = $AttackTimer
 onready var hitbox = get_node("WeaponContainer/Weapon/Hitbox")
 var attackAnimationIndex = 0
 #var attackAnimationName = 
@@ -20,7 +20,6 @@ var bowAttackAnimation = "bow"
 var attackDelay = 0.5
 var isNotAttackAnimation = true
 var type = "sword"
-
 
 const arrowPath = preload('res://scene/character/Arrow.tscn')
 var timerCharge = 2
@@ -33,7 +32,7 @@ var maxCharge = false
 var timerRemoved = false
 onready var progressBar = $ProgressBar
 onready var lineIndicator = $bow/Position2D/Icon
-onready var progressBar2 = $Health_test
+onready var health = $Health
 var damage = 12
 var invincibleTimerTime = 1.5
 var invincibleFrame = false
@@ -43,47 +42,6 @@ onready var dash = get_node("Dash")
 onready var weaponContainer = get_node("WeaponContainer")
 onready var weapon = weaponContainer.get_node("Weapon")
 
-#func swordAttack():
-#	# attack delay timer
-#	attackDelay = $AnimationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length + 0.5
-#	isNotAttacking = false
-#	# Move the player with attacking
-#	if player.flip_h == false:
-#		velocity.x += 1
-#	else:
-#		velocity.x -= 1
-#	velocity = velocity.normalized() * attackMoveSpeed
-#	# Check if animation frame is over
-#	if attackAnimationIndex == swordAttackAnimation.size():
-#		attackAnimationIndex = 0
-#	# Start timer and play the attack animation
-#	playback.travel(swordAttackAnimation[attackAnimationIndex])
-#	isNotAttackAnimation = false
-#	yield(get_tree().create_timer($AnimationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length - 0.1), "timeout")
-#	velocity = Vector2.ZERO
-#	attackAnimationIndex += 1
-#	isNotAttackAnimation = true
-#	#yield(get_tree().create_timer(0.5), "timeout")
-#	print(attackAnimationIndex)
-#	if attackAnimationIndex > 2:
-#		attackAnimationIndex = 0
-#
-#func bowAttack():
-#	velocity = Vector2.ZERO
-#	isNotAttacking = false
-#	playback.travel("bow")
-#	isNotAttackAnimation = true
-#
-#func attackMechanic():
-#	if Input.is_action_just_pressed("attack") && isNotAttackAnimation:
-#		var mousePos = get_global_mouse_position()
-#		weaponContainer.look_at(mousePos)
-#		match type:
-#			"bow": 
-#				bowAttack()
-#			"sword": 
-#				swordAttack()
-			
 var attackDirection = Vector2()
 
 func attackDirection():
@@ -98,29 +56,24 @@ func attackDirection():
 		attackDirection.x = -1.0
 
 func playerMovement():
-	velocity = Vector2.ZERO
-	if Input.is_action_pressed("down"):
-		velocity.y += 1.0
-	if Input.is_action_pressed("up"):
-		velocity.y -= 1.0
-	if Input.is_action_pressed("right"):
-		velocity.x += 1.0
-		player.flip_h = false
-#		hitbox.flip_h(false)
-	if Input.is_action_pressed("left"):
-		velocity.x -= 1.0
-		player.flip_h = true
-#		hitbox.flip_h(true)
+	velocity.x = Input.get_axis("left", "right")
+	velocity.y = Input.get_axis("up", "down")
 
 	# Move and animation
-	if velocity == Vector2.ZERO:
-		playback.travel("idle")
-	else:
-		playback.travel("walk")	
-		#dash
-		if(Input.is_action_just_pressed("dash") && !dash.isDashing() && dash.canDash):
-			dash.startDash(dashDuration, player)
-			playback.travel("dash")
+	if(weapon.isNotAttacking):
+		if Input.is_action_pressed("right"):
+			player.flip_h = false
+		if Input.is_action_pressed("left"):
+			player.flip_h = true
+		
+		if velocity == Vector2.ZERO:
+			playback.travel("idle")
+		else:
+			playback.travel("walk")	
+			#dash
+			if(Input.is_action_just_pressed("dash") && !dash.isDashing() && dash.canDash):
+				dash.startDash(dashDuration, player)
+				playback.travel("dash")
 	
 	var speed = dashSpeed if dash.isDashing() else moveSpeed
 	velocity = velocity.normalized() * speed	
@@ -193,36 +146,25 @@ func shoot(chargeType):
 	arrow.velocity = get_global_mouse_position() - arrow.position
 	get_parent().add_child(arrow)
 	
-func knockback(forceValue):
-	velocity -= forceValue
-	move_and_slide(velocity)
-
-
-func kenaDMG(dmg,pos_,speed=3000):
-	progressBar2.value -= dmg
-	var forceValue = Vector2(0,0)
-	if speed > 7500:
-		speed = 7500
-		
-	if pos_.x - self.position.x >= 0: 
-		forceValue.x = speed # knockback kekanan
-	else:
-		forceValue.x = -speed # knockback kekiri
-		
-	if pos_.y - self.position.y >= 0:
-		forceValue.y = speed # knockback keatas
-	else: 
-		forceValue.y = -speed # knockback kebawah
-	knockback(forceValue)
+func knockback(attackPosition):
+	velocity = ((position - attackPosition).normalized()) * 100
+	#sample
+	$Tween.interpolate_property(self, "position", position, position + velocity, 0.1, Tween.TRANS_LINEAR)
+	$Tween.start()
 	
-	invincibleFrame = true
-	invincibleTimer = Timer.new()
-	$CollisionShape2D.set_deferred("disabled", true)
-	$WeaponContainer/Weapon/Hitbox.set_deferred("monitoring", false)
-	invincibleTimer.wait_time = invincibleTimerTime
-	invincibleTimer.autostart = true
-	add_child(invincibleTimer)
-	stunned(0.6)
+func takesDamage(dmg, attackPosition):
+	health.value -= dmg
+	
+	knockback(attackPosition)
+	
+#	invincibleFrame = true
+#	invincibleTimer = Timer.new()
+#	$CollisionShape2D.set_deferred("disabled", true)
+#	$WeaponContainer/Weapon/Hitbox.set_deferred("monitoring", false)
+#	invincibleTimer.wait_time = invincibleTimerTime
+#	invincibleTimer.autostart = true
+#	add_child(invincibleTimer)
+#	stunned(0.6)
 	
 func stunned(duration):
 	duration += 0.2
@@ -232,33 +174,29 @@ func stunned(duration):
 	add_child(stunnedTimer)
 	isStunned = true	
 
+func updateAttackDirectionPosition():
+	attackDirection.x = Input.get_axis("atkLeft", "atkRight")
+	attackDirection.y = Input.get_axis("atkUp", "atkDown")
+	
 func _physics_process(delta):
 	if(weapon.isNotAttacking):
 		weapon.attackDelay = 0.3
-		playerMovement()
 	else:
 		weapon.attackDelay -= delta
 		if(weapon.attackDelay < 0):
 			weapon.attackAnimationIndex = 0
 			weapon.isNotAttacking = true
-	
+	playerMovement()
 	$bow.look_at(get_global_mouse_position())
 	rangeAttack()
-	attackDirection()
-	weapon.attackMechanic(position + (attackDirection.normalized() * 50))
+#	attackDirection()
+	updateAttackDirectionPosition()
+	weapon.attackMechanic(attackDirection.normalized())
 #	playerMovement()
-	if !weapon.isNotAttackAnimation:
-		velocity = velocity.normalized() * attackMoveSpeed
+#	if !weapon.isNotAttackAnimation:
+#		velocity = velocity.normalized() * attackMoveSpeed
 	velocity = move_and_slide(velocity)
 
-func iniPlayer():
-	pass # cuman treshold biar arrow ngga ilang pas nyentuh player.
-	
-func _on_Hitbox_body_entered(body):
-	print(body)
-	if body.has_method("iniPlayer"):
-		pass
-	else:
-		if(body.has_method("iniLawan")):
-			get_parent().get_parent().get_parent().progressBar2.value -= body.getDamage()
-			kenaDMG(body.getDamage(),body.getPosition())
+#func _on_Hitbox_body_entered(body):
+#	if(body.has_method("isEnemy")):
+#		kenaDMG(50, body.position)

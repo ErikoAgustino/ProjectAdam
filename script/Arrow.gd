@@ -41,12 +41,7 @@ func on_timeout_invis():
 func _physics_process(delta):
 	var collision_info = move_and_collide(velocity.normalized() * delta * speed)
 	
-
-
 func _on_Area2D_body_entered(body):
-	if body.has_method("iniPlayer"):
-		pass
-	else:
-		if(body.has_method("kenaDMG")):
-			body.kenaDMG(damage,positionStart,speed)
-		self.queue_free()
+	if(body.has_method("takesDamage")):
+		body.takesDamage(damage, global_position)
+	self.queue_free()

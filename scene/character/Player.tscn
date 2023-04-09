@@ -1,7 +1,7 @@
-[gd_scene load_steps=43 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Asset/Player/char_template_idle.png" type="Texture" id=1]
-[ext_resource path="res://Script/Player.gd" type="Script" id=2]
+[ext_resource path="res://script/Player.gd" type="Script" id=2]
 [ext_resource path="res://Asset/Player/char_template_walk.png" type="Texture" id=3]
 [ext_resource path="res://Asset/Weapon/Sword/sword_template.png" type="Texture" id=4]
 [ext_resource path="res://Asset/Weapon/Sword/fx/sword-slash-1.png" type="Texture" id=5]
@@ -10,7 +10,6 @@
 [ext_resource path="res://scene/character/Hitbox.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Asset/Weapon/Sword/fx/sword-slash-2.png" type="Texture" id=9]
 [ext_resource path="res://script/Weapon.gd" type="Script" id=10]
-[ext_resource path="res://Asset/Weapon/Bow/bow-animation.png" type="Texture" id=11]
 [ext_resource path="res://scene/character/Camera.tscn" type="PackedScene" id=12]
 [ext_resource path="res://icon.png" type="Texture" id=13]
 
@@ -41,7 +40,7 @@ tracks/1/keys = {
 "values": [ true ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("WeaponContainer/Weapon/Hitbox/CollisionShape2D:disabled")
+tracks/2/path = NodePath("Character:texture")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -50,10 +49,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ ExtResource( 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("CollisionShape2D:disabled")
+tracks/3/path = NodePath("Character:hframes")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -62,10 +61,10 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ false ]
+"values": [ 5 ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Character:texture")
+tracks/4/path = NodePath("Character:frame")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -74,10 +73,10 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 1 ) ]
+"values": [ 0 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Character:hframes")
+tracks/5/path = NodePath("WeaponContainer/Weapon:rotation_degrees")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -86,10 +85,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 5 ]
+"values": [ 0.0 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Character:frame")
+tracks/6/path = NodePath("WeaponContainer/Weapon:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -98,10 +97,10 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0 ]
+"values": [ Vector2( 7.66667, 1.66667 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("WeaponContainer/Weapon:rotation_degrees")
+tracks/7/path = NodePath("WeaponContainer/Slash:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -110,10 +109,10 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0.0 ]
+"values": [ null ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("WeaponContainer/Weapon:texture")
+tracks/8/path = NodePath("WeaponContainer/Slash:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -122,10 +121,10 @@ tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 4 ) ]
+"values": [ 4 ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("WeaponContainer/Weapon:position")
+tracks/9/path = NodePath("WeaponContainer/Slash:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -134,10 +133,10 @@ tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 7.66667, 1.66667 ) ]
+"values": [ 0 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("WeaponContainer/Slash:texture")
+tracks/10/path = NodePath("WeaponContainer/Slash:position")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -146,10 +145,10 @@ tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ null ]
+"values": [ Vector2( 55, -13.3333 ) ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("WeaponContainer/Slash:hframes")
+tracks/11/path = NodePath("WeaponContainer/Weapon:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -158,10 +157,10 @@ tracks/11/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 4 ]
+"values": [ true ]
 }
 tracks/12/type = "value"
-tracks/12/path = NodePath("WeaponContainer/Slash:frame")
+tracks/12/path = NodePath("WeaponContainer/Slash:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/imported = false
@@ -170,10 +169,10 @@ tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ 0 ]
+"values": [ true ]
 }
 tracks/13/type = "value"
-tracks/13/path = NodePath("WeaponContainer/Slash:position")
+tracks/13/path = NodePath("WeaponContainer/Weapon:hframes")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/imported = false
@@ -182,10 +181,10 @@ tracks/13/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 55, -13.3333 ) ]
+"values": [ 3 ]
 }
 tracks/14/type = "value"
-tracks/14/path = NodePath("WeaponContainer/Weapon:visible")
+tracks/14/path = NodePath("WeaponContainer/Weapon:frame")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/imported = false
@@ -194,51 +193,15 @@ tracks/14/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ true ]
+"values": [ 0 ]
 }
 tracks/15/type = "value"
-tracks/15/path = NodePath("WeaponContainer/Slash:visible")
+tracks/15/path = NodePath("WeaponContainer:visible")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/imported = false
 tracks/15/enabled = true
 tracks/15/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ true ]
-}
-tracks/16/type = "value"
-tracks/16/path = NodePath("WeaponContainer/Weapon:hframes")
-tracks/16/interp = 1
-tracks/16/loop_wrap = true
-tracks/16/imported = false
-tracks/16/enabled = true
-tracks/16/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 3 ]
-}
-tracks/17/type = "value"
-tracks/17/path = NodePath("WeaponContainer/Weapon:frame")
-tracks/17/interp = 1
-tracks/17/loop_wrap = true
-tracks/17/imported = false
-tracks/17/enabled = true
-tracks/17/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ 0 ]
-}
-tracks/18/type = "value"
-tracks/18/path = NodePath("WeaponContainer:visible")
-tracks/18/interp = 1
-tracks/18/loop_wrap = true
-tracks/18/imported = false
-tracks/18/enabled = true
-tracks/18/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -309,7 +272,7 @@ tracks/4/keys = {
 "values": [ 2 ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("WeaponContainer/Weapon:texture")
+tracks/5/path = NodePath("WeaponContainer/Weapon:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -317,11 +280,11 @@ tracks/5/enabled = true
 tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ ExtResource( 11 ) ]
+"update": 0,
+"values": [ Vector2( -7.66667, 2 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("WeaponContainer/Weapon:position")
+tracks/6/path = NodePath("WeaponContainer/Weapon:hframes")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -329,52 +292,40 @@ tracks/6/enabled = true
 tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -7.66667, 2 ) ]
+"update": 1,
+"values": [ 3 ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("WeaponContainer/Weapon:hframes")
+tracks/7/path = NodePath("WeaponContainer/Weapon:frame")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 3 ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("WeaponContainer/Weapon:frame")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 0 ]
 }
-tracks/9/type = "value"
-tracks/9/path = NodePath("WeaponContainer/Weapon:visible")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
+tracks/8/type = "value"
+tracks/8/path = NodePath("WeaponContainer/Weapon:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
 "times": PoolRealArray( 0, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/10/type = "value"
-tracks/10/path = NodePath("WeaponContainer/Weapon:rotation_degrees")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
+tracks/9/type = "value"
+tracks/9/path = NodePath("WeaponContainer/Weapon:rotation_degrees")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -384,18 +335,6 @@ tracks/10/keys = {
 [sub_resource type="Animation" id=46]
 resource_name = "dash"
 length = 0.61
-tracks/0/type = "value"
-tracks/0/path = NodePath("CollisionShape2D:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
 
 [sub_resource type="Animation" id=47]
 resource_name = "idle"
@@ -438,7 +377,7 @@ tracks/2/keys = {
 "values": [ 0, 1, 2, 3, 4 ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("WeaponContainer/Weapon:texture")
+tracks/3/path = NodePath("WeaponContainer/Weapon/Hitbox/CollisionShape2D:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -447,27 +386,15 @@ tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ null ]
+"values": [ true ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("WeaponContainer/Weapon/Hitbox/CollisionShape2D:disabled")
+tracks/4/path = NodePath("WeaponContainer:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
 tracks/4/enabled = true
 tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("WeaponContainer:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -550,7 +477,7 @@ tracks/5/keys = {
 "values": [ 0.0, 163.1 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("WeaponContainer/Weapon:texture")
+tracks/6/path = NodePath("WeaponContainer/Weapon:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -559,99 +486,87 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 4 ) ]
+"values": [ Vector2( 7.66667, 1.66667 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("WeaponContainer/Weapon:position")
+tracks/7/path = NodePath("WeaponContainer/Slash:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 7.66667, 1.66667 ) ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("WeaponContainer/Slash:texture")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
 "times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ ExtResource( 5 ), null ]
 }
-tracks/9/type = "value"
-tracks/9/path = NodePath("WeaponContainer/Slash:hframes")
-tracks/9/interp = 1
-tracks/9/loop_wrap = true
-tracks/9/imported = false
-tracks/9/enabled = true
-tracks/9/keys = {
+tracks/8/type = "value"
+tracks/8/path = NodePath("WeaponContainer/Slash:hframes")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 4 ]
 }
-tracks/10/type = "value"
-tracks/10/path = NodePath("WeaponContainer/Slash:frame")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
+tracks/9/type = "value"
+tracks/9/path = NodePath("WeaponContainer/Slash:frame")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 21.1121, 1, 1, 59.7141 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
-tracks/11/type = "value"
-tracks/11/path = NodePath("WeaponContainer/Weapon:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
+tracks/10/type = "value"
+tracks/10/path = NodePath("WeaponContainer/Weapon:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/12/type = "value"
-tracks/12/path = NodePath("WeaponContainer/Slash:visible")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
+tracks/11/type = "value"
+tracks/11/path = NodePath("WeaponContainer/Slash:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
 "times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/13/type = "value"
-tracks/13/path = NodePath("WeaponContainer/Weapon:hframes")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
+tracks/12/type = "value"
+tracks/12/path = NodePath("WeaponContainer/Weapon:hframes")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 1 ]
 }
-tracks/14/type = "value"
-tracks/14/path = NodePath("WeaponContainer:visible")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/keys = {
+tracks/13/type = "value"
+tracks/13/path = NodePath("WeaponContainer:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -734,7 +649,7 @@ tracks/5/keys = {
 "values": [ 209.594, 77.0401 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("WeaponContainer/Weapon:texture")
+tracks/6/path = NodePath("WeaponContainer/Weapon:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -743,34 +658,34 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 4 ) ]
+"values": [ Vector2( 7.66667, 1.66667 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("WeaponContainer/Weapon:position")
+tracks/7/path = NodePath("WeaponContainer/Weapon:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
 tracks/7/enabled = true
 tracks/7/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 7.66667, 1.66667 ) ]
-}
-tracks/8/type = "value"
-tracks/8/path = NodePath("WeaponContainer/Weapon:visible")
-tracks/8/interp = 1
-tracks/8/loop_wrap = true
-tracks/8/imported = false
-tracks/8/enabled = true
-tracks/8/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
+tracks/8/type = "value"
+tracks/8/path = NodePath("WeaponContainer/Slash:texture")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 9 ) ]
+}
 tracks/9/type = "value"
-tracks/9/path = NodePath("WeaponContainer/Slash:texture")
+tracks/9/path = NodePath("WeaponContainer/Slash:hframes")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
@@ -779,63 +694,51 @@ tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 9 ) ]
+"values": [ 4 ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("WeaponContainer/Slash:hframes")
+tracks/10/path = NodePath("WeaponContainer/Slash:frame")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
 tracks/10/enabled = true
 tracks/10/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 4 ]
-}
-tracks/11/type = "value"
-tracks/11/path = NodePath("WeaponContainer/Slash:frame")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
-tracks/12/type = "value"
-tracks/12/path = NodePath("WeaponContainer/Slash:position")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
+tracks/11/type = "value"
+tracks/11/path = NodePath("WeaponContainer/Slash:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Vector2( 55, -13.3333 ) ]
 }
-tracks/13/type = "value"
-tracks/13/path = NodePath("WeaponContainer/Slash:visible")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
+tracks/12/type = "value"
+tracks/12/path = NodePath("WeaponContainer/Slash:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
 "times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/14/type = "value"
-tracks/14/path = NodePath("WeaponContainer:visible")
-tracks/14/interp = 1
-tracks/14/loop_wrap = true
-tracks/14/imported = false
-tracks/14/enabled = true
-tracks/14/keys = {
+tracks/13/type = "value"
+tracks/13/path = NodePath("WeaponContainer:visible")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -918,19 +821,19 @@ tracks/5/keys = {
 "values": [ 0.0, 163.1 ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("WeaponContainer/Weapon:texture")
+tracks/6/path = NodePath("WeaponContainer/Weapon:position")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ ExtResource( 4 ), null ]
+"values": [ Vector2( 7.66667, 1.66667 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("WeaponContainer/Weapon:position")
+tracks/7/path = NodePath("WeaponContainer/Slash:texture")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -938,11 +841,11 @@ tracks/7/enabled = true
 tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 7.66667, 1.66667 ) ]
+"update": 1,
+"values": [ ExtResource( 6 ) ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("WeaponContainer/Slash:texture")
+tracks/8/path = NodePath("WeaponContainer/Slash:hframes")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -951,63 +854,51 @@ tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ ExtResource( 6 ) ]
+"values": [ 4 ]
 }
 tracks/9/type = "value"
-tracks/9/path = NodePath("WeaponContainer/Slash:hframes")
+tracks/9/path = NodePath("WeaponContainer/Slash:frame")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/imported = false
 tracks/9/enabled = true
 tracks/9/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 4 ]
-}
-tracks/10/type = "value"
-tracks/10/path = NodePath("WeaponContainer/Slash:frame")
-tracks/10/interp = 1
-tracks/10/loop_wrap = true
-tracks/10/imported = false
-tracks/10/enabled = true
-tracks/10/keys = {
 "times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3 ]
 }
-tracks/11/type = "value"
-tracks/11/path = NodePath("WeaponContainer/Weapon:visible")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/keys = {
+tracks/10/type = "value"
+tracks/10/path = NodePath("WeaponContainer/Weapon:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/12/type = "value"
-tracks/12/path = NodePath("WeaponContainer/Slash:visible")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/keys = {
+tracks/11/type = "value"
+tracks/11/path = NodePath("WeaponContainer/Slash:visible")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
 "times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
-tracks/13/type = "value"
-tracks/13/path = NodePath("WeaponContainer:visible")
-tracks/13/interp = 1
-tracks/13/loop_wrap = true
-tracks/13/imported = false
-tracks/13/enabled = true
-tracks/13/keys = {
+tracks/12/type = "value"
+tracks/12/path = NodePath("WeaponContainer:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
@@ -1061,6 +952,9 @@ extents = Vector2( 12.9051, 14.5205 )
 [sub_resource type="AnimationNodeAnimation" id=71]
 animation = "bow"
 
+[sub_resource type="AnimationNodeAnimation" id=74]
+animation = "dash"
+
 [sub_resource type="AnimationNodeAnimation" id=21]
 animation = "idle"
 
@@ -1108,9 +1002,15 @@ auto_advance = true
 switch_mode = 2
 auto_advance = true
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=75]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=76]
+
 [sub_resource type="AnimationNodeStateMachine" id=52]
 states/bow/node = SubResource( 71 )
 states/bow/position = Vector2( 565, 242.855 )
+states/dash/node = SubResource( 74 )
+states/dash/position = Vector2( 948.209, 122 )
 states/idle/node = SubResource( 21 )
 states/idle/position = Vector2( 565, 122 )
 states/sword1/node = SubResource( 57 )
@@ -1121,15 +1021,16 @@ states/sword3/node = SubResource( 67 )
 states/sword3/position = Vector2( 289.209, -20.2 )
 states/walk/node = SubResource( 54 )
 states/walk/position = Vector2( 778.209, 122 )
-transitions = [ "idle", "walk", SubResource( 55 ), "walk", "idle", SubResource( 56 ), "idle", "sword1", SubResource( 58 ), "sword1", "idle", SubResource( 59 ), "walk", "sword1", SubResource( 60 ), "sword1", "walk", SubResource( 61 ), "sword1", "sword2", SubResource( 64 ), "sword2", "idle", SubResource( 65 ), "sword2", "sword3", SubResource( 68 ), "sword3", "idle", SubResource( 69 ), "idle", "bow", SubResource( 72 ), "bow", "idle", SubResource( 73 ) ]
+transitions = [ "idle", "walk", SubResource( 55 ), "walk", "idle", SubResource( 56 ), "idle", "sword1", SubResource( 58 ), "sword1", "idle", SubResource( 59 ), "walk", "sword1", SubResource( 60 ), "sword1", "walk", SubResource( 61 ), "sword1", "sword2", SubResource( 64 ), "sword2", "idle", SubResource( 65 ), "sword2", "sword3", SubResource( 68 ), "sword3", "idle", SubResource( 69 ), "idle", "bow", SubResource( 72 ), "bow", "idle", SubResource( 73 ), "walk", "dash", SubResource( 75 ), "dash", "walk", SubResource( 76 ) ]
 start_node = "idle"
-graph_offset = Vector2( 51.2091, 6.02301 )
+graph_offset = Vector2( 51.2091, 29.375 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=53]
 
 [node name="Player" type="KinematicBody2D"]
 scale = Vector2( 2, 2 )
 z_index = 1
+collision_mask = 514
 script = ExtResource( 2 )
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -1141,7 +1042,7 @@ margin_bottom = -40.0
 max_value = 2.0
 percent_visible = false
 
-[node name="Health_test" type="ProgressBar" parent="."]
+[node name="Health" type="ProgressBar" parent="."]
 margin_left = -48.0
 margin_top = -37.0
 margin_right = 53.0
@@ -1169,12 +1070,11 @@ rotation = -2.84663
 scale = Vector2( 0.8, 0.8 )
 collision_layer = 4
 collision_mask = 2
+script = null
 
 [node name="CollisionShape2D" parent="WeaponContainer/Weapon/Hitbox" index="0"]
 position = Vector2( 33.0229, 28.5181 )
 rotation = 0.482628
-
-[node name="Node2D" type="Node2D" parent="WeaponContainer/Weapon"]
 
 [node name="Slash" type="Sprite" parent="WeaponContainer"]
 position = Vector2( 55, -13.3333 )
@@ -1222,7 +1122,8 @@ position = Vector2( 120, 0 )
 scale = Vector2( -3.851, 0.0504131 )
 texture = ExtResource( 13 )
 
-[connection signal="body_entered" from="WeaponContainer/Weapon/Hitbox" to="." method="_on_Hitbox_body_entered"]
+[node name="Tween" type="Tween" parent="."]
+
 [connection signal="body_entered" from="WeaponContainer/Weapon/Hitbox" to="WeaponContainer/Weapon" method="_on_Hitbox_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
