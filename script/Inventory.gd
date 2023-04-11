@@ -26,12 +26,12 @@ func initialize_inventory():
 	var slots = inventory_slots.get_children()
 	for i in range(slots.size()):
 		if PlayerInventory.inventory.has(i):
-			slots[i].initialize_item(PlayerInventory.inventory[i])
+			slots[i].initialize_item(PlayerInventory.inventory[i][0], PlayerInventory.inventory[i][1])
 
 func initialize_equips():
 	for i in range(equip_slots.size()):
 		if PlayerInventory.equips.has(i):
-			equip_slots[i].initialize_item(PlayerInventory.equips[i])
+			equip_slots[i].initialize_item(PlayerInventory.equips[i][0], PlayerInventory.equips[i][1])
 
 func slot_gui_input(event: InputEvent, slot: SlotClass):
 	if event is InputEventMouseButton:

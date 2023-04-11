@@ -74,5 +74,6 @@ func updateTexture(item):
 	flip_h = true
 
 func _on_Hitbox_body_entered(body):
+	var swordStatus = JsonData.item_data[PlayerInventory.equips[0][0]]
 	if(body.has_method("takesDamage")):
-		body.takesDamage((PlayerStatus.strenght + PlayerInventory.equips[0][3]) * 25, global_position)
+		body.takesDamage((PlayerStatus.strenght + swordStatus['strenght']) * 25, global_position)

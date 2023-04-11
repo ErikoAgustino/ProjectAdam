@@ -2,12 +2,6 @@ extends Node2D
 
 var item_name
 var item_quantity
-
-var quality
-var strenght : int
-var agility : int
-var intelligence : int
-var intelligenceRequire : int
 var texture
 
 func _ready():
@@ -28,15 +22,9 @@ func _ready():
 	else:
 		$Label.text = String(item_quantity)
 
-func set_item(item):
-	item_name = item[0]
-	item_quantity = item[1]
-	if(item.size() > 2):
-		quality = item[2]
-		strenght = item[3]
-		agility = item[4]
-		intelligence = item[5]
-		intelligenceRequire = item[6]
+func set_item(itemName, itemQuantity):
+	item_name = itemName
+	item_quantity = itemQuantity
 	texture = load("res://Asset/Texture/" + item_name + ".png")
 	$TextureRect.texture = texture
 	
@@ -46,9 +34,6 @@ func set_item(item):
 	else:
 		$Label.visible = true
 		$Label.text = String(item_quantity)
-
-func toArray():
-	return [item_name, item_quantity, quality, strenght, agility, intelligence, intelligenceRequire]
 
 func add_item_quantity(amount_to_add):
 	item_quantity += amount_to_add

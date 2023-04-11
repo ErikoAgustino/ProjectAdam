@@ -5,13 +5,13 @@ signal weaponChanged(item)
 
 const SlotClass = preload("res://script/Slot.gd")
 const ItemClass = preload("res://script/Item.gd")
-const NUM_INVENTORY_SLOTS = 20
+const NUM_INVENTORY_SLOTS = 40
 const NUM_HOTBAR_SLOTS = 8
 
 var active_item_slot = 0
 
 var inventory = {
-	0: ["Tree Branch", 1, "Common", 2, 2, 2, 2],  #--> slot_index: [item_name, item_quantity]
+	0: ["Tree Branch", 1],  #--> slot_index: [item_name, item_quantity]
 	1: ["Slime Potion", 98],
 	2: ["Slime Potion", 45],
 }
@@ -22,7 +22,7 @@ var inventory = {
 #}
 
 var equips = {
-	0: ["Iron Sword", 1, "Common", 1, 1, 1, 1],  #--> slot_index: [item_name, item_quantity]
+	0: ["Iron Sword", 1],  #--> slot_index: [item_name, item_quantity]
 	1: ["Blue Jeans", 1],  #--> slot_index: [item_name, item_quantity]
 	2: ["Brown Boots", 1],	
 }
@@ -37,30 +37,30 @@ func add_item(item_name, item_quantity):
 			var able_to_add = stack_size - inventory[item][1]
 			if able_to_add >= item_quantity:
 				inventory[item][1] += item_quantity
-				update_slot_visual(item, inventory[item])
+				update_slot_visual(item, inventory[item][0],inventory[item][1])
 				return
 			else:
 				inventory[item][1] += able_to_add
-				update_slot_visual(item, inventory[item])
+				update_slot_visual(item, inventory[item][0],inventory[item][1])
 				item_quantity = item_quantity - able_to_add
 	
 	# item doesn't exist in inventory yet, so add it to an empty slot
 	for i in range(NUM_INVENTORY_SLOTS):
 		if inventory.has(i) == false:
 			inventory[i] = [item_name, item_quantity]
-			update_slot_visual(i, inventory[i])
+			update_slot_visual(i, inventory[i][0],inventory[i][1])
 			return
 
 # TODO: Make compatible with hotbar as well
-func update_slot_visual(slot_index, item):
+func update_slot_visual(slot_index, itemName, itemQuantity):
 	var slot = get_tree().root.get_node("/root/World/UserInterface/Inventory/GridContainer/Slot" + str(slot_index + 1))
 	if slot.item != null:
-		slot.item.set_item(item)
+		slot.item.set_item(itemName, itemQuantity)
 	else:
-		slot.initialize_item(item)
+		slot.initialize_item(itemName, itemQuantity)
 
 func remove_item(slot: SlotClass):
-	match slot.SlotType:
+	match slot.slotType:
 #		SlotClass.SlotType.HOTBAR:
 #			hotbar.erase(slot.slot_index)
 		SlotClass.SlotType.INVENTORY:
@@ -69,24 +69,26 @@ func remove_item(slot: SlotClass):
 			equips.erase(slot.slot_index)
 
 func add_item_to_empty_slot(item: ItemClass, slot: SlotClass):
-	match slot.SlotType:
+#	print(slot.slotType == SlotClass.SlotType.INVENTORY)
+	match slot.slotType:
 #		SlotClass.SlotType.HOTBAR:
 #			hotbar[slot.slot_index] = [item.item_name, item.item_quantity]
 		SlotClass.SlotType.INVENTORY:
-			inventory[slot.slot_index] = item.toArray()
+			inventory[slot.slot_index] = [item.item_name, item.item_quantity]
 		_:
-			equips[slot.slot_index] = item.toArray()
-			if(slot.slot_index == 0):
+			equips[slot.slot_index] = [item.item_name, item.item_quantity]
+			if(slot.slot_index == 0 and slot.slotType == 2):
 				emit_signal("weaponChanged", item)
 
 func add_item_quantity(slot: SlotClass, quantity_to_add: int):
-	match slot.SlotType:
+	match slot.slotType:
 #		SlotClass.SlotType.HOTBAR:
 #			hotbar[slot.slot_index][1] += quantity_to_add
 		SlotClass.SlotType.INVENTORY:
 			inventory[slot.slot_index][1] += quantity_to_add
 		_:
-			equips[slot.slot_index][1] += quantity_to_add
+			pass
+#			equips[slot.slot_index][1] += quantity_to_add
 
 ###
 ### Hotbar Related Functions
