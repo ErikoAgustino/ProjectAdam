@@ -4,7 +4,7 @@ extends Node
 signal healthChanged(health)
 signal manaChanged(mana)
 
-var level = 0 
+var level = 0
 var currentXP = 0
 var xpRequireToNextLevel = 0
 var strenght = 0

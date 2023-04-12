@@ -96,6 +96,7 @@ expand = true
 stretch_mode = 4
 
 [node name="Skill" type="Control" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -110,7 +111,6 @@ expand = true
 stretch_mode = 4
 
 [node name="Skill2" type="TextureButton" parent="Skill"]
-visible = false
 modulate = Color( 1, 1, 1, 0.54902 )
 margin_left = 950.0
 margin_top = 390.0
@@ -146,5 +146,5 @@ value = 50.0
 
 [connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="InventoryButton" to="." method="_on_InventoryButton_pressed"]
-[connection signal="pressed" from="DashButton" to="." method="_on_DashButton_pressed"]
+[connection signal="button_down" from="DashButton" to="." method="_on_DashButton_button_down"]
 [connection signal="pressed" from="Skill/Skill1" to="." method="_on_Skill1_pressed"]

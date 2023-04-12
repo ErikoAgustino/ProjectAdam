@@ -154,6 +154,8 @@ func knockback(attackPosition):
 	
 func takesDamage(dmg, attackPosition):
 	PlayerStatus.changeHealth(PlayerStatus.currentHealth - dmg)
+	if(PlayerStatus.currentHealth < 1):
+		get_tree().change_scene("res://scene/level/EndScene.tscn")
 	knockback(attackPosition)
 	
 #	invincibleFrame = true
@@ -190,7 +192,8 @@ func _physics_process(delta):
 	rangeAttack()
 #	attackDirection()
 	updateAttackDirectionPosition()
-	weapon.attackMechanic(attackDirection.normalized())
+	if(attackDirection.x > 0 or attackDirection.y > 0 or attackDirection.x < 0 or attackDirection.y < 0):
+		weapon.attackMechanic(attackDirection.normalized())
 #	playerMovement()
 #	if !weapon.isNotAttackAnimation:
 #		velocity = velocity.normalized() * attackMoveSpeed

@@ -6,7 +6,7 @@ func _ready():
 	visible = false
 
 func _process(delta):
-	if Input.is_action_just_released("pause"):
+	if Input.is_action_just_pressed("pause"):
 		self.is_paused = !is_paused
 
 func set_is_paused(value):

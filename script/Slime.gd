@@ -1,5 +1,7 @@
 extends "res://script/Enemy.gd"
 
+const DropItem = preload("res://scene/ui/ItemDrop.tscn")
+
 func _ready() ->void :
 	_agent.set_target_location(_player.global_position)
 #	_timer.connect("timeout",self,"_update_pathfinding")
@@ -40,29 +42,33 @@ func knockback(attackPosition):
 	_velocity = ((position - attackPosition).normalized()) * 500
 	
 func takesDamage(dmg, attackPosition):
-	hp-= 50
+	hp-= dmg
+	spawn_damage(dmg)
 	if(hp<=0):
-		var live = self.lives
+#		var live = self.lives
 
-		var scene = load("res://scene/enemy/Slime.tscn")
-		var slime = scene.instance()
-		slime.path_to_player = self.path_to_player
-		slime.lives = live - 1
-		slime.position = self.get_position()
-		slime.hp=100
-		get_parent().add_child(slime)
-		
-		var slime2 = scene.instance()
-		slime2.path_to_player = self.path_to_player
-		slime2.lives=live-1
-		slime2.hp=100
-		slime2.position = self.get_position() + Vector2(100.0,100.0)
-		get_parent().add_child(slime2)
+#		var scene = load("res://scene/enemy/Slime.tscn")
+#		var slime = scene.instance()
+#		slime.path_to_player = self.path_to_player
+#		slime.lives = live - 1
+#		slime.position = self.get_position()
+#		slime.hp=100
+#		get_parent().add_child(slime)
+#
+#		var slime2 = scene.instance()
+#		slime2.path_to_player = self.path_to_player
+#		slime2.lives=live-1
+#		slime2.hp=100
+#		slime2.position = self.get_position() + Vector2(100.0,100.0)
+#		get_parent().add_child(slime2)
+		var dropItem = DropItem.instance()
+		dropItem.item_name = "Slime Potion"
+		dropItem.position = global_position
+		get_parent().add_child(dropItem)
 		
 		get_parent().remove_child(self)
 		queue_free()	
 	else:
-		spawn_damage(dmg)
 		knockback(attackPosition)
 		
 	if (lives<=0):

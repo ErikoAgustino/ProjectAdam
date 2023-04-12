@@ -54,7 +54,7 @@ func bowAttack():
 	isNotAttackAnimation = true
 
 func attackMechanic(attackDirection):
-	if Input.is_action_just_pressed("attack") && isNotAttackAnimation:
+	if isNotAttackAnimation:
 #		var mousePos = get_global_mouse_position()
 		get_parent().look_at(global_position + attackDirection * 50)
 		
