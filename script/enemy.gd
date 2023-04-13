@@ -2,9 +2,9 @@ extends KinematicBody2D
 export var path_to_player := NodePath()
 export(int) var lives: int = 2
 export(int) var hp: int = 100
-
+export(int) var max_hp: int=100
 var timer=0
-var maxSpeed := 0.0
+var maxSpeed := 100
 
 var _velocity := Vector2.ZERO
 onready var _agent: NavigationAgent2D = $NavigationAgent2D

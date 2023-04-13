@@ -1,5 +1,5 @@
-extends "res://script/Enemy.gd"
-
+extends "res://script/enemy.gd"
+var follow_player = false
 const DropItem = preload("res://scene/ui/ItemDrop.tscn")
 
 func _ready() ->void :
@@ -17,14 +17,14 @@ func _physics_process(delta: float )-> void:
 	var steering := (desired_velocity - _velocity) * delta * 4.0
 	_velocity += steering
 	
-	_velocity = move_and_slide(_velocity)
 
-	if (timer > 0.5):
-		jump()
-		if (direction.x > 0):
-			get_node("AnimatedSprite").flip_h = true
-		if (direction.x < 0): 
-			get_node("AnimatedSprite").flip_h = false		
+
+	if (follow_player):
+		_velocity = move_and_slide(_velocity)
+		if (direction.x >0):
+			get_node("AnimatedSprite").flip_h = true	
+		if (direction.x <0): 
+			get_node("AnimatedSprite").flip_h = false
 	
 func _update_pathfinding() -> void:
 	_agent.set_target_location(_player.global_position)
@@ -45,29 +45,13 @@ func takesDamage(dmg, attackPosition):
 	hp-= dmg
 	spawn_damage(dmg)
 	if(hp<=0):
-#		var live = self.lives
-
-#		var scene = load("res://scene/enemy/Slime.tscn")
-#		var slime = scene.instance()
-#		slime.path_to_player = self.path_to_player
-#		slime.lives = live - 1
-#		slime.position = self.get_position()
-#		slime.hp=100
-#		get_parent().add_child(slime)
-#
-#		var slime2 = scene.instance()
-#		slime2.path_to_player = self.path_to_player
-#		slime2.lives=live-1
-#		slime2.hp=100
-#		slime2.position = self.get_position() + Vector2(100.0,100.0)
-#		get_parent().add_child(slime2)
 		var dropItem = DropItem.instance()
 		dropItem.item_name = "Slime Potion"
 		dropItem.position = global_position
 		get_parent().add_child(dropItem)
 		
 		get_parent().remove_child(self)
-		queue_free()	
+		queue_free()
 	else:
 		knockback(attackPosition)
 		
@@ -78,3 +62,7 @@ func takesDamage(dmg, attackPosition):
 func _on_Area2D_body_entered(body):
 	if(body.has_method("takesDamage")):
 		body.takesDamage(10, global_position)
+		
+func _on_detectPlayer_body_entered(body):
+	if body == _player:
+		follow_player = true

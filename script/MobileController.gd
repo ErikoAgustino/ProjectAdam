@@ -18,9 +18,11 @@ func updateMana(mp):
 
 func _on_PauseButton_pressed():
 	Input.action_press("pause")
+	print("pause")
 
 func _on_InventoryButton_pressed():
 	Input.action_press("inventory")
+	print("inventoryh")
 
 func _on_Skill1_pressed():
 	pass # Replace with function body.
