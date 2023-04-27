@@ -1033,7 +1033,6 @@ percent_visible = false
 [node name="Character" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 5
-frame = 4
 
 [node name="WeaponContainer" type="Node2D" parent="."]
 visible = false

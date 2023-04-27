@@ -8,12 +8,12 @@ func _ready() ->void :
 	_timer.connect("timeout",self,"_update_pathfinding")
 func _physics_process(delta: float )-> void:
 	
-	print(State)
+#	print(State)
 	if ANI.get_current_animation() != State:
 		ANI.play(State)
 	if (follow_player):
 		timer+=delta
-	print(timer)
+#	print(timer)
 	if _agent.is_navigation_finished():
 		return
 		

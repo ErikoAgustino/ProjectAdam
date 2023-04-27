@@ -37,6 +37,7 @@ var damage = 12
 var invincibleTimerTime = 1.5
 var invincibleFrame = false
 var isStunned = false
+var isKnockingBack = false
 
 onready var dash = get_node("Dash")
 onready var weaponContainer = get_node("WeaponContainer")
@@ -147,10 +148,13 @@ func shoot(chargeType):
 	get_parent().add_child(arrow)
 	
 func knockback(attackPosition):
-	velocity = ((position - attackPosition).normalized()) * 100
+	velocity = ((position - attackPosition).normalized()) * 500
+	isKnockingBack = true
+	yield(get_tree().create_timer(0.2), "timeout")
+	isKnockingBack = false
 	#sample
-	$Tween.interpolate_property(self, "position", position, position + velocity, 0.1, Tween.TRANS_LINEAR)
-	$Tween.start()
+#	$Tween.interpolate_property(self, "position", position, position + velocity, 0.2, Tween.TRANS_LINEAR)
+#	$Tween.start()
 	
 func takesDamage(dmg, attackPosition):
 	PlayerStatus.changeHealth(PlayerStatus.currentHealth - dmg)
@@ -178,22 +182,28 @@ func stunned(duration):
 func updateAttackDirectionPosition():
 	attackDirection.x = Input.get_axis("atkLeft", "atkRight")
 	attackDirection.y = Input.get_axis("atkUp", "atkDown")
-	
+
+func skillAttack():
+	if(Input.is_action_just_pressed("skill1")):
+		shoot("strong")
+
 func _physics_process(delta):
-	if(weapon.isNotAttacking):
-		weapon.attackDelay = 0.3
-	else:
-		weapon.attackDelay -= delta
-		if(weapon.attackDelay < 0):
-			weapon.attackAnimationIndex = 0
-			weapon.isNotAttacking = true
-	playerMovement()
-	$bow.look_at(get_global_mouse_position())
-	rangeAttack()
-#	attackDirection()
-	updateAttackDirectionPosition()
-	if(attackDirection.x > 0 or attackDirection.y > 0 or attackDirection.x < 0 or attackDirection.y < 0):
-		weapon.attackMechanic(attackDirection.normalized())
+	if(!isKnockingBack):
+		if(weapon.isNotAttacking):
+			weapon.attackDelay = 0.3
+		else:
+			weapon.attackDelay -= delta
+			if(weapon.attackDelay < 0):
+				weapon.attackAnimationIndex = 0
+				weapon.isNotAttacking = true
+		playerMovement()
+		$bow.look_at(get_global_mouse_position())
+		rangeAttack()
+		skillAttack()
+	#	attackDirection()
+		updateAttackDirectionPosition()
+		if(attackDirection.x > 0 or attackDirection.y > 0 or attackDirection.x < 0 or attackDirection.y < 0):
+			weapon.attackMechanic(attackDirection.normalized())
 #	playerMovement()
 #	if !weapon.isNotAttackAnimation:
 #		velocity = velocity.normalized() * attackMoveSpeed
@@ -202,3 +212,4 @@ func _physics_process(delta):
 #func _on_Hitbox_body_entered(body):
 #	if(body.has_method("isEnemy")):
 #		kenaDMG(50, body.position)
+
