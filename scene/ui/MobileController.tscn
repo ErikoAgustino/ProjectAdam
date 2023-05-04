@@ -1,0 +1,150 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Asset/Texture/pause.png" type="Texture" id=1]
+[ext_resource path="res://Asset/Texture/inventoryButton.png" type="Texture" id=2]
+[ext_resource path="res://scene/joystick/VirtualJoystick.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Asset/Texture/swordButton.png" type="Texture" id=4]
+[ext_resource path="res://script/MobileController.gd" type="Script" id=5]
+[ext_resource path="res://Asset/Texture/joystickBG.png" type="Texture" id=6]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.8, 0.305882, 0.305882, 1 )
+border_width_bottom = 10
+border_color = Color( 0.6, 0.180392, 0.317647, 1 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_offset = Vector2( 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.337255, 0.337255, 0.839216, 1 )
+border_width_bottom = 10
+border_color = Color( 0.345098, 0.192157, 0.65098, 1 )
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="MobileController" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 5 )
+
+[node name="PauseButton" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -80.0
+margin_top = 10.0
+margin_right = -10.0
+margin_bottom = 80.0
+texture_normal = ExtResource( 1 )
+expand = true
+stretch_mode = 4
+
+[node name="InventoryButton" type="TextureButton" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -80.0
+margin_top = 200.0
+margin_right = -10.0
+margin_bottom = 270.0
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="MovementJoystick" parent="." instance=ExtResource( 3 )]
+clampzone_size = 50.0
+
+[node name="AttackJoystick" parent="." instance=ExtResource( 3 )]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -250.0
+margin_right = -50.0
+tipTexture = ExtResource( 4 )
+deadzone_size = 25.0
+clampzone_size = 26.0
+action_left = "atkLeft"
+action_right = "atkRight"
+action_up = "atkUp"
+action_down = "atkDown"
+
+[node name="DashButton" type="TextureButton" parent="."]
+modulate = Color( 1, 1, 1, 0.54902 )
+margin_left = 1110.0
+margin_top = 340.0
+margin_right = 1230.0
+margin_bottom = 460.0
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="Skill" type="Control" parent="."]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Skill1" type="TextureButton" parent="Skill"]
+modulate = Color( 1, 1, 1, 0.54902 )
+margin_left = 890.0
+margin_top = 550.0
+margin_right = 1010.0
+margin_bottom = 670.0
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="Skill2" type="TextureButton" parent="Skill"]
+modulate = Color( 1, 1, 1, 0.54902 )
+margin_left = 950.0
+margin_top = 390.0
+margin_right = 1070.0
+margin_bottom = 510.0
+texture_normal = ExtResource( 6 )
+expand = true
+stretch_mode = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 510.0
+margin_bottom = 70.0
+custom_constants/separation = 10
+
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer"]
+margin_right = 500.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 25 )
+custom_styles/fg = SubResource( 1 )
+custom_styles/bg = SubResource( 2 )
+value = 20.0
+
+[node name="ManaBar" type="ProgressBar" parent="VBoxContainer"]
+margin_top = 35.0
+margin_right = 500.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 25 )
+custom_styles/fg = SubResource( 3 )
+custom_styles/bg = SubResource( 4 )
+value = 50.0
+
+[connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="InventoryButton" to="." method="_on_InventoryButton_pressed"]
+[connection signal="button_down" from="DashButton" to="." method="_on_DashButton_button_down"]
+[connection signal="pressed" from="Skill/Skill1" to="." method="_on_Skill1_pressed"]

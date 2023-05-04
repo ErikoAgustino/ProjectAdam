@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://script/ItemWeapon.gd" type="Script" id=1]
+[ext_resource path="res://Asset/Weapon/Sword/sword_template.png" type="Texture" id=2]
+
+[node name="IronSword" type="Node2D"]
+script = ExtResource( 1 )
+names = "IronSword"
+texture = ExtResource( 2 )
+strenght = 1
+agility = 1
+intelligence = 1
+intelligenceRequire = 1

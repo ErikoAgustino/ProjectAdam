@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://default_inventory_background.png" type="Texture" id=1]
-[ext_resource path="res://item_slot_default_background.png" type="Texture" id=2]
-[ext_resource path="res://Slot.gd" type="Script" id=3]
-[ext_resource path="res://Inventory.gd" type="Script" id=4]
+[ext_resource path="res://Asset/Texture/default_inventory_background.png" type="Texture" id=1]
+[ext_resource path="res://Asset/Texture/item_slot_default_background.png" type="Texture" id=2]
+[ext_resource path="res://script/Slot.gd" type="Script" id=3]
+[ext_resource path="res://script/Inventory.gd" type="Script" id=4]
 [ext_resource path="res://images/ShoesOverlay.png" type="Texture" id=5]
 [ext_resource path="res://images/ShirtOverlay.png" type="Texture" id=6]
 [ext_resource path="res://images/PantsOverlay.png" type="Texture" id=7]
@@ -16,7 +16,7 @@ region_rect = Rect2( 0, 0, 18, 18 )
 texture = ExtResource( 2 )
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="Inventory" type="Node2D"]
+[node name="Inventory" type="Control"]
 script = ExtResource( 4 )
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -25,9 +25,6 @@ margin_top = 78.7939
 margin_right = 324.558
 margin_bottom = 190.794
 texture = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="GridContainer" type="GridContainer" parent="."]
 margin_left = 213.324
