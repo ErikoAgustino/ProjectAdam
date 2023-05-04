@@ -45,6 +45,10 @@ onready var weapon = weaponContainer.get_node("Weapon")
 
 var attackDirection = Vector2()
 
+##Variable baru
+var flashBlinking = 0.0;
+var blinking = false;
+
 func attackDirection():
 	attackDirection = Vector2()
 	if Input.is_action_pressed("down"):
@@ -136,8 +140,12 @@ func rangeAttack():
 		invincibleFrame = false
 		invincibleTimer.stop()
 		remove_child(invincibleTimer)
-		$CollisionShape2D.set_deferred("disabled", false)
-		$WeaponContainer/Weapon/Hitbox.set_deferred("monitoring", true)
+		##### new code
+		#### disabling interaction between player and enemy
+		set_collision_layer(1)
+		set_collision_mask(514)
+		blinking = false;
+		######
 		print("invicibility habis")
 
 func shoot(chargeType):
@@ -161,16 +169,29 @@ func takesDamage(dmg, attackPosition):
 	if(PlayerStatus.currentHealth < 1):
 		get_tree().change_scene("res://scene/level/EndScene.tscn")
 	knockback(attackPosition)
+	var a = load("res://particle/BloodRedParticle.tscn")
+	var b = a.instance()
+	b.position = global_position
+	get_parent().add_child(b)
+	invincible()
 	
-#	invincibleFrame = true
-#	invincibleTimer = Timer.new()
-#	$CollisionShape2D.set_deferred("disabled", true)
-#	$WeaponContainer/Weapon/Hitbox.set_deferred("monitoring", false)
-#	invincibleTimer.wait_time = invincibleTimerTime
-#	invincibleTimer.autostart = true
-#	add_child(invincibleTimer)
-#	stunned(0.6)
+###### new code
+##### added invicible() function
+func invincible():
+	invincibleFrame = true
+	invincibleTimer = Timer.new()
+	set_collision_layer(0)
+	set_collision_mask(512)
+	blinking = true 
 	
+	#$CollisionShape2D.set_deferred("disabled", true)
+	#$WeaponContainer/Weapon/Hitbox.set_deferred("monitoring", false)
+	invincibleTimer.wait_time = invincibleTimerTime
+	invincibleTimer.autostart = true
+	add_child(invincibleTimer)
+	stunned(0.6)
+######
+
 func stunned(duration):
 	duration += 0.2
 	stunnedTimer = Timer.new()
@@ -207,6 +228,19 @@ func _physics_process(delta):
 #	playerMovement()
 #	if !weapon.isNotAttackAnimation:
 #		velocity = velocity.normalized() * attackMoveSpeed
+	
+	##### new code 
+	#### added blinking effect
+	if(blinking == true):
+		flashBlinking += 0.1
+		if(flashBlinking >= 0.6):
+			flashBlinking = 0
+		$Character.material.set_shader_param("flash_modifier", flashBlinking)
+	else: 
+		flashBlinking = 0.0
+		$Character.material.set_shader_param("flash_modifier", 0.0)
+	######
+		
 	velocity = move_and_slide(velocity)
 
 #func _on_Hitbox_body_entered(body):
