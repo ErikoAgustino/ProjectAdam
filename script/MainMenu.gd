@@ -11,6 +11,8 @@ func _on_continue_pressed():
 	pass
 
 func _on_newgame_pressed():
+	PlayerStatus.changeHealth(100)
+	PlayerStatus.changeMana(100)	
 	get_tree().change_scene("res://scene/level/Tutorial.tscn")
 
 func _on_credit_pressed():
