@@ -8,6 +8,9 @@ var chargeType = ""
 var damage = 20
 var positionStart = Vector2(0, 0)
 
+var a = load("res://particle/BowEffectStrong.tscn")
+var b = a.instance()
+
 func _ready():
 	var timer = Timer.new()
 	var invistimer = Timer.new()
@@ -25,10 +28,10 @@ func _ready():
 		damage = 1
 	if(chargeType == "medium"):
 		speed = 400
-		damage = 1
+		damage = 60
 	if(chargeType == "strong"):
 		speed = 1000
-		damage = 1
+		damage = 100
 	positionStart = self.position
 	
 	
@@ -40,6 +43,9 @@ func on_timeout_invis():
 	
 func _physics_process(delta):
 	var collision_info = move_and_collide(velocity.normalized() * delta * speed)
+	b = a.instance()
+	b.position = global_position
+	get_parent().add_child(b)
 	
 func _on_Area2D_body_entered(body):
 	if(body.has_method("takesDamage")):
