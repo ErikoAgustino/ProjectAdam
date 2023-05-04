@@ -2,6 +2,7 @@ extends Sprite
 
 var velocity = Vector2.ZERO
 var isNotAttacking = true
+var rng = RandomNumberGenerator.new()
 
 onready var animationPlayer = get_node("../../AnimationPlayer")
 onready var animationTree = get_node("../../AnimationTree")
@@ -76,4 +77,7 @@ func updateTexture(item):
 func _on_Hitbox_body_entered(body):
 	var swordStatus = JsonData.item_data[PlayerInventory.equips[0][0]]
 	if(body.has_method("takesDamage")):
-		body.takesDamage((PlayerStatus.strenght + swordStatus['strenght']) * 5, global_position)
+		var damage = (PlayerStatus.strenght + swordStatus['strenght']) * 5
+		if (100 >= rng.randi_range(0,100)):
+			damage = damage * 2
+		body.takesDamage(damage, global_position)
