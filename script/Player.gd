@@ -166,6 +166,10 @@ func knockback(attackPosition):
 	
 func takesDamage(dmg, attackPosition):
 	PlayerStatus.changeHealth(PlayerStatus.currentHealth - dmg)
+	
+	# Camera2D.shake(duration, frequency, amplitude, priority)
+	$Camera/Camera2D.shake(0.2, 15, 20, 0)
+	
 	if(PlayerStatus.currentHealth < 1):
 		get_tree().change_scene("res://scene/level/EndScene.tscn")
 	knockback(attackPosition)
