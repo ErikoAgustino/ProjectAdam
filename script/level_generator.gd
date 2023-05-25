@@ -27,6 +27,12 @@ func walk(steps):
 			change_direction()
 		if step():
 			step_history.append(position)
+			if(step_history[step_history.size()-2] - position == Vector2(0,1) || step_history[step_history.size()-1] - position == Vector2(0,-1)):
+				step_history.append(Vector2(position.x+1, position.y))
+				step_history.append(Vector2(position.x+1, position.y+1))
+			elif(step_history[step_history.size()-2] - position == Vector2(1,0) || step_history[step_history.size()-1] - position == Vector2(-1,0)):
+				step_history.append(Vector2(position.x, position.y+1))
+				step_history.append(Vector2(position.x+1, position.y+1))
 		else:
 			change_direction()
 	return step_history
