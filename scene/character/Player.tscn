@@ -1,4 +1,6 @@
+
 [gd_scene load_steps=44 format=2]
+
 
 [ext_resource path="res://Asset/Player/char_template_idle.png" type="Texture" id=1]
 [ext_resource path="res://script/Player.gd" type="Script" id=2]
@@ -9,6 +11,12 @@
 [ext_resource path="res://script/Weapon.gd" type="Script" id=10]
 [ext_resource path="res://scene/character/Camera.tscn" type="PackedScene" id=12]
 [ext_resource path="res://icon.png" type="Texture" id=13]
+
+[ext_resource path="res://Asset/Player/Battlemage Complete (Sprite Sheet)/Attack 3/Battlemage Attack 3.png" type="Texture" id=14]
+[ext_resource path="res://Asset/Player/Battlemage Complete (Sprite Sheet)/Attack 1/Battlemage Attack 1.png" type="Texture" id=15]
+[ext_resource path="res://Asset/Player/Battlemage Complete (Sprite Sheet)/Running/Battlemage Run.png" type="Texture" id=16]
+[ext_resource path="res://Asset/Weapon/Sword/fx/sword-slash-2.png" type="Texture" id=17]
+
 
 [sub_resource type="Shader" id=77]
 code = "shader_type canvas_item;
@@ -756,14 +764,6 @@ animation = "sword3"
 [sub_resource type="AnimationNodeAnimation" id=54]
 animation = "walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=55]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=56]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=58]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=59]
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=60]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=61]
@@ -771,12 +771,9 @@ animation = "walk"
 [sub_resource type="AnimationNodeStateMachineTransition" id=64]
 switch_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id=65]
-switch_mode = 2
-auto_advance = true
-
 [sub_resource type="AnimationNodeStateMachineTransition" id=68]
 switch_mode = 2
+
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=69]
 switch_mode = 2
@@ -799,6 +796,7 @@ states/dash/node = SubResource( 74 )
 states/dash/position = Vector2( 948.209, 122 )
 states/idle/node = SubResource( 21 )
 states/idle/position = Vector2( 565, 122 )
+
 states/sword1/node = SubResource( 57 )
 states/sword1/position = Vector2( 671.209, -20.2 )
 states/sword2/node = SubResource( 63 )
@@ -806,10 +804,12 @@ states/sword2/position = Vector2( 479.209, -20.2 )
 states/sword3/node = SubResource( 67 )
 states/sword3/position = Vector2( 289.209, -20.2 )
 states/walk/node = SubResource( 54 )
+
 states/walk/position = Vector2( 778.209, 122 )
 transitions = [ "idle", "walk", SubResource( 55 ), "walk", "idle", SubResource( 56 ), "idle", "sword1", SubResource( 58 ), "sword1", "idle", SubResource( 59 ), "walk", "sword1", SubResource( 60 ), "sword1", "walk", SubResource( 61 ), "sword1", "sword2", SubResource( 64 ), "sword2", "idle", SubResource( 65 ), "sword2", "sword3", SubResource( 68 ), "sword3", "idle", SubResource( 69 ), "idle", "bow", SubResource( 72 ), "bow", "idle", SubResource( 73 ), "walk", "dash", SubResource( 75 ), "dash", "walk", SubResource( 76 ) ]
 start_node = "idle"
 graph_offset = Vector2( 51.2091, 29.375 )
+
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=53]
 
