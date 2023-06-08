@@ -41,11 +41,11 @@ func addXP(amount):
 		levelup()
 	
 func getXPRequireToNextLevel(level):
-	return round(pow(level, 1.5))
+	return int(round(pow(level, 1.5)))
 
 func levelup():
 	level += 1
-	xpRequireToNextLevel = getXPRequireToNextLevel(level)
+	xpRequireToNextLevel = getXPRequireToNextLevel(level+1)
 	strenght += 1  
 	agility += 1
 	intelligence += 1

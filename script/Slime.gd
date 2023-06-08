@@ -49,7 +49,8 @@ func takesDamage(dmg, attackPosition):
 		dropItem.item_name = "Slime Potion"
 		dropItem.position = global_position
 		get_parent().add_child(dropItem)
-		
+		PlayerStatus.addXP(5)
+
 		get_parent().remove_child(self)
 		queue_free()
 	else:

@@ -1011,7 +1011,7 @@ states/walk/node = SubResource( 54 )
 states/walk/position = Vector2( 778.209, 122 )
 transitions = [ "idle", "walk", SubResource( 55 ), "walk", "idle", SubResource( 56 ), "idle", "sword1", SubResource( 58 ), "sword1", "idle", SubResource( 59 ), "walk", "sword1", SubResource( 60 ), "sword1", "walk", SubResource( 61 ), "sword1", "sword2", SubResource( 64 ), "sword2", "idle", SubResource( 65 ), "sword2", "sword3", SubResource( 68 ), "sword3", "idle", SubResource( 69 ), "idle", "bow", SubResource( 72 ), "bow", "idle", SubResource( 73 ), "walk", "dash", SubResource( 75 ), "dash", "walk", SubResource( 76 ) ]
 start_node = "idle"
-graph_offset = Vector2( 51.2091, 29.375 )
+graph_offset = Vector2( 51.2091, -184.129 )
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=53]
 
@@ -1033,7 +1033,6 @@ percent_visible = false
 [node name="Character" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 hframes = 5
-frame = 4
 
 [node name="WeaponContainer" type="Node2D" parent="."]
 visible = false

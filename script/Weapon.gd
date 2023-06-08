@@ -78,6 +78,6 @@ func _on_Hitbox_body_entered(body):
 	var swordStatus = JsonData.item_data[PlayerInventory.equips[0][0]]
 	if(body.has_method("takesDamage")):
 		var damage = (PlayerStatus.strenght + swordStatus['strenght']) * 5
-		if (100 >= rng.randi_range(0,100)):
+		if (rng.randi_range(0,100) <= (PlayerStatus.agility + swordStatus['agillity'])*5):
 			damage = damage * 2
 		body.takesDamage(damage, global_position)
