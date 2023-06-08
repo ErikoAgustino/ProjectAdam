@@ -6,7 +6,6 @@ onready var ANI = get_node("AnimationPlayer")
 func _ready() ->void :
 	_agent.set_target_location(_player.global_position)
 	_timer.connect("timeout",self,"_update_pathfinding")
-	
 func _physics_process(delta: float )-> void:
 	
 #	print(State)

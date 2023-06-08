@@ -7,11 +7,8 @@ const PortalS = preload("res://scene/level/Portal.tscn")
 const EnemyGenerator = preload("res://scene/enemy/EnemyGenerator.tscn")
 
 onready var tileMap = $grass_wall
-onready var fadeScreen = $FadeScreen
 
 func _ready():
-	fadeScreen.fadeOut()
-	
 	randomize()
 	generate_level()
 
@@ -38,10 +35,7 @@ func generate_level():
 	tileMap.update_bitmask_region(borders.position, borders.end)
 
 func reloadLevel():
-	fadeScreen.fadeIn()
 	GameManager.currentLevel += 1
-	yield(get_tree().create_timer(0.5), "timeout")
-	
 	if(GameManager.currentLevel % 5 == 0):
 		get_tree().change_scene("res://scene/ui/MainMenu.tscn")
 	else:
