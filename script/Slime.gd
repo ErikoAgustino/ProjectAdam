@@ -50,7 +50,9 @@ func takesDamage(dmg, attackPosition):
 		dropItem.position = global_position
 		get_parent().add_child(dropItem)
 		PlayerStatus.addXP(5)
-
+		for i in range(10):
+			print(PlayerStatus.getXPRequireToNextLevel(i))
+		
 		get_parent().remove_child(self)
 		queue_free()
 	else:

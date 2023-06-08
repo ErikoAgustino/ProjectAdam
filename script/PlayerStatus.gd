@@ -41,7 +41,7 @@ func addXP(amount):
 		levelup()
 	
 func getXPRequireToNextLevel(level):
-	return int(round(pow(level, 1.5)))
+	return int(round(pow(level+4, 1.5)))
 
 func levelup():
 	level += 1
