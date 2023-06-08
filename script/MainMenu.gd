@@ -1,5 +1,7 @@
 extends Control
 
+func _ready():
+	SoundManager.play_bgm("mainMenu")
 
 func _on_settings_pressed():
 	get_tree().change_scene("res://scene/ui/Settings.tscn")
