@@ -37,15 +37,15 @@ func initialize(level, currentXP, xpRequireToNextLevel, strenght, agility, intel
 func addXP(amount):
 	currentXP += amount
 	while currentXP >= xpRequireToNextLevel :
-		currentXP = currentXP % xpRequireToNextLevel
+		currentXP = 0
 		levelup()
 	
 func getXPRequireToNextLevel(level):
-	return int(round(pow(level+4, 1.5)))
+	return round(pow(level, 1.5))
 
 func levelup():
 	level += 1
-	xpRequireToNextLevel = getXPRequireToNextLevel(level+1)
+	xpRequireToNextLevel = getXPRequireToNextLevel(level)
 	strenght += 1  
 	agility += 1
 	intelligence += 1

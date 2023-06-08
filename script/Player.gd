@@ -32,17 +32,22 @@ var maxCharge = false
 var timerRemoved = false
 onready var progressBar = $ProgressBar
 onready var lineIndicator = $bow/Position2D/Icon
-onready var health = $Health
+#onready var health = $Health
 var damage = 12
 var invincibleTimerTime = 1.5
 var invincibleFrame = false
 var isStunned = false
+var isKnockingBack = false
 
 onready var dash = get_node("Dash")
 onready var weaponContainer = get_node("WeaponContainer")
 onready var weapon = weaponContainer.get_node("Weapon")
 
 var attackDirection = Vector2()
+
+##Variable baru
+var flashBlinking = 0.0;
+var blinking = false;
 
 func attackDirection():
 	attackDirection = Vector2()
@@ -75,20 +80,8 @@ func playerMovement():
 				dash.startDash(dashDuration, player)
 				playback.travel("dash")
 	
-	var speed = (dashSpeed+getDashBoost()) if dash.isDashing() else (moveSpeed+getSpeedBoost())
-	velocity = velocity.normalized() * speed
-
-func getDashBoost():
-	var boost = ((PlayerStatus.agility+JsonData.item_data[PlayerInventory.equips[0][0]]['agillity'])*10)
-	if (boost > 400):
-		return 400
-	return boost
-
-func getSpeedBoost():
-	var boost = ((PlayerStatus.agility+JsonData.item_data[PlayerInventory.equips[0][0]]['agillity'])*2)
-	if (boost > 200):
-		return 200
-	return boost
+	var speed = dashSpeed if dash.isDashing() else moveSpeed
+	velocity = velocity.normalized() * speed	
 
 func rangeAttack():
 		## start charging bow with "z" max = 2 seconds
@@ -147,8 +140,12 @@ func rangeAttack():
 		invincibleFrame = false
 		invincibleTimer.stop()
 		remove_child(invincibleTimer)
-		$CollisionShape2D.set_deferred("disabled", false)
-		$WeaponContainer/Weapon/Hitbox.set_deferred("monitoring", true)
+		##### new code
+		#### disabling interaction between player and enemy
+		set_collision_layer(1)
+		set_collision_mask(514)
+		blinking = false;
+		######
 		print("invicibility habis")
 
 func shoot(chargeType):
@@ -159,26 +156,46 @@ func shoot(chargeType):
 	get_parent().add_child(arrow)
 	
 func knockback(attackPosition):
-	velocity = ((position - attackPosition).normalized()) * 100
+	velocity = ((position - attackPosition).normalized()) * 500
+	isKnockingBack = true
+	yield(get_tree().create_timer(0.2), "timeout")
+	isKnockingBack = false
 	#sample
-	$Tween.interpolate_property(self, "position", position, position + velocity, 0.1, Tween.TRANS_LINEAR)
-	$Tween.start()
+#	$Tween.interpolate_property(self, "position", position, position + velocity, 0.2, Tween.TRANS_LINEAR)
+#	$Tween.start()
 	
 func takesDamage(dmg, attackPosition):
 	PlayerStatus.changeHealth(PlayerStatus.currentHealth - dmg)
+	
+	# Camera2D.shake(duration, frequency, amplitude, priority)
+	$Camera/Camera2D.shake(0.2, 15, 20, 0)
+	
 	if(PlayerStatus.currentHealth < 1):
 		get_tree().change_scene("res://scene/level/EndScene.tscn")
 	knockback(attackPosition)
+	var a = load("res://particle/BloodRedParticle.tscn")
+	var b = a.instance()
+	b.position = global_position
+	get_parent().add_child(b)
+	invincible()
 	
-#	invincibleFrame = true
-#	invincibleTimer = Timer.new()
-#	$CollisionShape2D.set_deferred("disabled", true)
-#	$WeaponContainer/Weapon/Hitbox.set_deferred("monitoring", false)
-#	invincibleTimer.wait_time = invincibleTimerTime
-#	invincibleTimer.autostart = true
-#	add_child(invincibleTimer)
-#	stunned(0.6)
+###### new code
+##### added invicible() function
+func invincible():
+	invincibleFrame = true
+	invincibleTimer = Timer.new()
+	set_collision_layer(0)
+	set_collision_mask(512)
+	blinking = true 
 	
+	#$CollisionShape2D.set_deferred("disabled", true)
+	#$WeaponContainer/Weapon/Hitbox.set_deferred("monitoring", false)
+	invincibleTimer.wait_time = invincibleTimerTime
+	invincibleTimer.autostart = true
+	add_child(invincibleTimer)
+	stunned(0.6)
+######
+
 func stunned(duration):
 	duration += 0.2
 	stunnedTimer = Timer.new()
@@ -190,30 +207,47 @@ func stunned(duration):
 func updateAttackDirectionPosition():
 	attackDirection.x = Input.get_axis("atkLeft", "atkRight")
 	attackDirection.y = Input.get_axis("atkUp", "atkDown")
-	
+
+func skillAttack():
+	if(Input.is_action_just_pressed("skill1")):
+		shoot("strong")
+
 func _physics_process(delta):
-	if(Input.is_action_just_pressed("lvl_up")):
-		PlayerStatus.levelup()
-		print(PlayerStatus.level)
-	if(weapon.isNotAttacking):
-		weapon.attackDelay = 0.3
-	else:
-		weapon.attackDelay -= delta
-		if(weapon.attackDelay < 0):
-			weapon.attackAnimationIndex = 0
-			weapon.isNotAttacking = true
-	playerMovement()
-	$bow.look_at(get_global_mouse_position())
-	rangeAttack()
-#	attackDirection()
-	updateAttackDirectionPosition()
-	if(attackDirection.x > 0 or attackDirection.y > 0 or attackDirection.x < 0 or attackDirection.y < 0):
-		weapon.attackMechanic(attackDirection.normalized())
+	if(!isKnockingBack):
+		if(weapon.isNotAttacking):
+			weapon.attackDelay = 0.3
+		else:
+			weapon.attackDelay -= delta
+			if(weapon.attackDelay < 0):
+				weapon.attackAnimationIndex = 0
+				weapon.isNotAttacking = true
+		playerMovement()
+		$bow.look_at(get_global_mouse_position())
+		rangeAttack()
+		skillAttack()
+	#	attackDirection()
+		updateAttackDirectionPosition()
+		if(attackDirection.x > 0 or attackDirection.y > 0 or attackDirection.x < 0 or attackDirection.y < 0):
+			weapon.attackMechanic(attackDirection.normalized())
 #	playerMovement()
 #	if !weapon.isNotAttackAnimation:
 #		velocity = velocity.normalized() * attackMoveSpeed
+	
+	##### new code 
+	#### added blinking effect
+	if(blinking == true):
+		flashBlinking += 0.1
+		if(flashBlinking >= 0.6):
+			flashBlinking = 0
+		$Character.material.set_shader_param("flash_modifier", flashBlinking)
+	else: 
+		flashBlinking = 0.0
+		$Character.material.set_shader_param("flash_modifier", 0.0)
+	######
+		
 	velocity = move_and_slide(velocity)
 
 #func _on_Hitbox_body_entered(body):
 #	if(body.has_method("isEnemy")):
 #		kenaDMG(50, body.position)
+

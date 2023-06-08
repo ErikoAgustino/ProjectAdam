@@ -4,9 +4,7 @@
     "StackSize": 1,
     "quality": "Common",
     "strenght": 2,
-    "strenghtRequire": 2,
-    "agillity": 2,
-    "agillityRequire": 2,
+    "agility": 2,
     "intelligence": 2,
     "intelligenceRequire": 2,
     "Description": "A sturdy tree branch that can be used for crafting."
@@ -23,9 +21,7 @@
     "StackSize": 1,
     "quality": "Common",
     "strenght": 1,
-    "strenghtRequire": 1,
-    "agillity": 2,
-    "agillityRequire": 2,
+    "agility": 2,
     "intelligence": 1,
     "intelligenceRequire": 1,
     "Description": "Quite a rusty sword, but should be able to get the job done."

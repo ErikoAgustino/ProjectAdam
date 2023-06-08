@@ -49,22 +49,29 @@ func takesDamage(dmg, attackPosition):
 		dropItem.item_name = "Slime Potion"
 		dropItem.position = global_position
 		get_parent().add_child(dropItem)
-		PlayerStatus.addXP(5)
-		for i in range(10):
-			print(PlayerStatus.getXPRequireToNextLevel(i))
-		
+		var a = load("res://particle/BloodBlackParticleBig.tscn")
+		var b = a.instance()
+		b.position = global_position
+		get_parent().add_child(b)
 		get_parent().remove_child(self)
+	
 		queue_free()
 	else:
 		knockback(attackPosition)
+		
+		var a = load("res://particle/BloodBlackParticle.tscn")
+		var b = a.instance()
+		b.position = global_position
+		get_parent().add_child(b)
 		
 	if (lives<=0):
 		get_parent().remove_child(self)
 		queue_free()
 
+
 func _on_Area2D_body_entered(body):
 	if(body.has_method("takesDamage")):
-		body.takesDamage(10, global_position)
+		body.takesDamage(4, global_position)
 		
 func _on_detectPlayer_body_entered(body):
 	if body == _player:

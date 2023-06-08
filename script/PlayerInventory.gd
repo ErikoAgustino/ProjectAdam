@@ -77,7 +77,8 @@ func add_item_to_empty_slot(item: ItemClass, slot: SlotClass):
 			inventory[slot.slot_index] = [item.item_name, item.item_quantity]
 		_:
 			equips[slot.slot_index] = [item.item_name, item.item_quantity]
-			emit_signal("weaponChanged", item)
+			if(slot.slot_index == 0 and slot.slotType == 2):
+				emit_signal("weaponChanged", item)
 
 func add_item_quantity(slot: SlotClass, quantity_to_add: int):
 	match slot.slotType:

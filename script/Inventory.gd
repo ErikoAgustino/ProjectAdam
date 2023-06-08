@@ -41,14 +41,7 @@ func slot_gui_input(event: InputEvent, slot: SlotClass):
 					left_click_empty_slot(slot)
 				else:
 					if find_parent("UserInterface").holding_item.item_name != slot.item.item_name:
-						if(slot.slotType == SlotClass.SlotType.SWORD):
-							var strreq = int(JsonData.item_data[find_parent("UserInterface").holding_item.item_name]["strenghtRequire"])
-							var agireq = int(JsonData.item_data[find_parent("UserInterface").holding_item.item_name]["agillityRequire"])
-							var intreq = int(JsonData.item_data[find_parent("UserInterface").holding_item.item_name]["intelligenceRequire"])
-							if(PlayerStatus.strenght >= strreq and PlayerStatus.agility >= agireq and PlayerStatus.intelligence >= intreq):
-								left_click_different_item(event, slot)
-						else:
-							left_click_different_item(event, slot)
+						left_click_different_item(event, slot)
 					else:
 						left_click_same_item(slot)
 			elif slot.item:

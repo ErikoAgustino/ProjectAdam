@@ -6,6 +6,7 @@ onready var ANI = get_node("AnimationPlayer")
 func _ready() ->void :
 	_agent.set_target_location(_player.global_position)
 	_timer.connect("timeout",self,"_update_pathfinding")
+	
 func _physics_process(delta: float )-> void:
 	
 #	print(State)
@@ -130,11 +131,18 @@ func takesDamage(dmg, attackPosition):
 		dropItem.item_name = "Slime Potion"
 		dropItem.position = global_position
 		get_parent().add_child(dropItem)
-		
+		var a = load("res://particle/BloodBlueParticleBig.tscn")
+		var b = a.instance()
+		b.position = global_position
+		get_parent().add_child(b)
 		get_parent().remove_child(self)
 		queue_free()	
 	else:
 		knockback(attackPosition)
+		var a = load("res://particle/BloodBlueParticle.tscn")
+		var b = a.instance()
+		b.position = global_position
+		get_parent().add_child(b)
 		
 	if (lives<=0):
 		get_parent().remove_child(self)
