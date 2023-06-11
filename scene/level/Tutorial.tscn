@@ -22,6 +22,9 @@ font_data = ExtResource( 11 )
 position = Vector2( 0, -1 )
 script = ExtResource( 10 )
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color( 0.176471, 0.176471, 0.176471, 1 )
+
 [node name="Floor_Stone" parent="." instance=ExtResource( 2 )]
 collision_layer = 512
 bake_navigation = true

@@ -1,22 +1,17 @@
-
-[gd_scene load_steps=44 format=2]
-
+[gd_scene load_steps=49 format=2]
 
 [ext_resource path="res://Asset/Player/char_template_idle.png" type="Texture" id=1]
 [ext_resource path="res://script/Player.gd" type="Script" id=2]
 [ext_resource path="res://Asset/Player/char_template_walk.png" type="Texture" id=3]
 [ext_resource path="res://Asset/Weapon/Sword/sword_template.png" type="Texture" id=4]
+[ext_resource path="res://scene/character/Slash.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Asset/Weapon/Sword/trail.png" type="Texture" id=6]
 [ext_resource path="res://scene/character/Dash.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scene/character/Hitbox.tscn" type="PackedScene" id=8]
+[ext_resource path="res://images/2d_lights_and_shadows_neutral_point_light.webp" type="Texture" id=9]
 [ext_resource path="res://script/Weapon.gd" type="Script" id=10]
 [ext_resource path="res://scene/character/Camera.tscn" type="PackedScene" id=12]
 [ext_resource path="res://icon.png" type="Texture" id=13]
-
-[ext_resource path="res://Asset/Player/Battlemage Complete (Sprite Sheet)/Attack 3/Battlemage Attack 3.png" type="Texture" id=14]
-[ext_resource path="res://Asset/Player/Battlemage Complete (Sprite Sheet)/Attack 1/Battlemage Attack 1.png" type="Texture" id=15]
-[ext_resource path="res://Asset/Player/Battlemage Complete (Sprite Sheet)/Running/Battlemage Run.png" type="Texture" id=16]
-[ext_resource path="res://Asset/Weapon/Sword/fx/sword-slash-2.png" type="Texture" id=17]
-
 
 [sub_resource type="Shader" id=77]
 code = "shader_type canvas_item;
@@ -34,6 +29,82 @@ void fragment() {
 shader = SubResource( 77 )
 shader_param/flash_color = Color( 1, 1, 1, 1 )
 shader_param/flash_modifier = 0.0
+
+[sub_resource type="Shader" id=79]
+code = "shader_type canvas_item;
+
+uniform float value : hint_range(-6.283, 6.283, 0.1);
+uniform int quality : hint_range(1, 100, 1);
+
+uniform float occilation_speed : hint_range(0.0, 10.0, 0.1);
+
+uniform float scale_value : hint_range(0.0, 10.0, 0.1);
+
+uniform float xOffset : hint_range(-0.5, 0.5);
+uniform float yOffset : hint_range(-0.5, 0.5);
+
+vec2 rotated(vec2 pos, float rads){
+
+    pos -= vec2(0.5,0.5);
+
+    float tempvecx = pos.x * cos(rads) - pos.y * sin(rads);
+
+    float tempvecy = pos.x * sin(rads) + pos.y * cos(rads);
+
+    vec2 finalvalue = vec2(tempvecx,tempvecy) + vec2(0.5,0.5);
+
+    return finalvalue;
+}
+
+vec2 scale(vec2 uv, float x, float y)
+{
+	mat2 scale = mat2(vec2(x, 0.0), vec2(0.0, y));
+	
+	uv -= 0.5;
+	uv = uv * scale;
+	uv += 0.5;
+	
+	if (uv.x >= 0.0 && uv.x <= 1.0 && uv.y >= 0.0 && uv.y <= 1.0)
+		return uv;
+	
+	return vec2(-20.0*scale_value,-20.0*scale_value);
+}
+
+
+
+
+void fragment(){
+	
+	COLOR = vec4(0,0,0,0);
+	
+	float i = 0.0;
+	for (int j = 0; j < quality; j++ ){
+		i += (value+ sin(TIME*occilation_speed)/2.0 )  /float(quality);
+		
+		COLOR += texture(TEXTURE,scale(rotated(UV,i)+vec2(xOffset/scale_value,yOffset/scale_value), scale_value,scale_value ));
+	}
+	
+	float t = 1.0/float(quality);
+	COLOR *= t;
+	
+	
+}
+
+
+void vertex(){
+
+	VERTEX.y *= scale_value;
+	VERTEX.x *= scale_value;
+}"
+
+[sub_resource type="ShaderMaterial" id=80]
+shader = SubResource( 79 )
+shader_param/value = 0.2
+shader_param/quality = 2
+shader_param/occilation_speed = 0.0
+shader_param/scale_value = 1.2
+shader_param/xOffset = 0.0
+shader_param/yOffset = -0.055
 
 [sub_resource type="Animation" id=45]
 length = 0.001
@@ -180,6 +251,30 @@ tracks/11/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("WeaponContainer/Weapon/Trail:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("WeaponContainer/Weapon/Trail:position")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34.1333, -8.13334 ) ]
 }
 
 [sub_resource type="Animation" id=70]
@@ -354,6 +449,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=49]
 resource_name = "sword1"
 length = 0.4
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("WeaponContainer/Weapon/Hitbox:monitoring")
 tracks/0/interp = 1
@@ -474,10 +570,47 @@ tracks/9/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/10/type = "value"
+tracks/10/path = NodePath("WeaponContainer/Weapon/Trail:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.04, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("WeaponContainer/Weapon/Trail:flip_v")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("WeaponContainer/Weapon/Trail:position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34.1333, -8.13334 ) ]
+}
 
 [sub_resource type="Animation" id=62]
 resource_name = "sword2"
 length = 0.4
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("WeaponContainer/Weapon/Hitbox:monitoring")
 tracks/0/interp = 1
@@ -586,10 +719,47 @@ tracks/8/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("WeaponContainer/Weapon/Trail:visible")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 0.03, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("WeaponContainer/Weapon/Trail:flip_v")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("WeaponContainer/Weapon/Trail:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -14.6741, -34.8351 ) ]
+}
 
 [sub_resource type="Animation" id=66]
 resource_name = "sword3"
 length = 0.4
+step = 0.01
 tracks/0/type = "value"
 tracks/0/path = NodePath("WeaponContainer/Weapon/Hitbox:monitoring")
 tracks/0/interp = 1
@@ -698,6 +868,42 @@ tracks/8/keys = {
 "update": 1,
 "values": [ false, true ]
 }
+tracks/9/type = "value"
+tracks/9/path = NodePath("WeaponContainer/Weapon/Trail:flip_v")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("WeaponContainer/Weapon/Trail:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0, 0.02, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ false, true, false ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("WeaponContainer/Weapon/Trail:position")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -34.9333, -9.33334 ) ]
+}
 
 [sub_resource type="Animation" id=48]
 resource_name = "walk"
@@ -764,6 +970,14 @@ animation = "sword3"
 [sub_resource type="AnimationNodeAnimation" id=54]
 animation = "walk"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=55]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=56]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=58]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=59]
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=60]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=61]
@@ -771,9 +985,12 @@ animation = "walk"
 [sub_resource type="AnimationNodeStateMachineTransition" id=64]
 switch_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id=65]
+switch_mode = 2
+auto_advance = true
+
 [sub_resource type="AnimationNodeStateMachineTransition" id=68]
 switch_mode = 2
-
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=69]
 switch_mode = 2
@@ -796,7 +1013,6 @@ states/dash/node = SubResource( 74 )
 states/dash/position = Vector2( 948.209, 122 )
 states/idle/node = SubResource( 21 )
 states/idle/position = Vector2( 565, 122 )
-
 states/sword1/node = SubResource( 57 )
 states/sword1/position = Vector2( 671.209, -20.2 )
 states/sword2/node = SubResource( 63 )
@@ -804,12 +1020,10 @@ states/sword2/position = Vector2( 479.209, -20.2 )
 states/sword3/node = SubResource( 67 )
 states/sword3/position = Vector2( 289.209, -20.2 )
 states/walk/node = SubResource( 54 )
-
 states/walk/position = Vector2( 778.209, 122 )
 transitions = [ "idle", "walk", SubResource( 55 ), "walk", "idle", SubResource( 56 ), "idle", "sword1", SubResource( 58 ), "sword1", "idle", SubResource( 59 ), "walk", "sword1", SubResource( 60 ), "sword1", "walk", SubResource( 61 ), "sword1", "sword2", SubResource( 64 ), "sword2", "idle", SubResource( 65 ), "sword2", "sword3", SubResource( 68 ), "sword3", "idle", SubResource( 69 ), "idle", "bow", SubResource( 72 ), "bow", "idle", SubResource( 73 ), "walk", "dash", SubResource( 75 ), "dash", "walk", SubResource( 76 ) ]
 start_node = "idle"
 graph_offset = Vector2( 51.2091, 29.375 )
-
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id=53]
 
@@ -818,6 +1032,12 @@ scale = Vector2( 2, 2 )
 z_index = 1
 collision_mask = 514
 script = ExtResource( 2 )
+
+[node name="Light2D" type="Light2D" parent="."]
+texture = ExtResource( 9 )
+texture_scale = 1.8
+energy = 1.03
+shadow_enabled = true
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 visible = false
@@ -837,12 +1057,20 @@ hframes = 5
 visible = false
 
 [node name="Weapon" type="Sprite" parent="WeaponContainer"]
+material = SubResource( 80 )
 position = Vector2( 7.66667, 1.66667 )
 scale = Vector2( 1.25, 1.25 )
 texture = ExtResource( 4 )
 offset = Vector2( -15.4667, -15.7333 )
 hframes = 3
 script = ExtResource( 10 )
+
+[node name="Trail" type="Sprite" parent="WeaponContainer/Weapon"]
+modulate = Color( 1, 1, 1, 0.196078 )
+position = Vector2( -34.1333, -8.13334 )
+rotation = -2.53073
+scale = Vector2( 0.1, 0.15 )
+texture = ExtResource( 6 )
 
 [node name="Hitbox" parent="WeaponContainer/Weapon" instance=ExtResource( 8 )]
 position = Vector2( 0.516455, 12.9773 )
@@ -853,9 +1081,13 @@ collision_mask = 2
 script = null
 
 [node name="CollisionShape2D" parent="WeaponContainer/Weapon/Hitbox" index="0"]
-position = Vector2( 33.0229, 28.5181 )
+position = Vector2( 35.9123, 30.6523 )
 rotation = 0.482628
 disabled = true
+
+[node name="Slash" parent="WeaponContainer/Weapon" instance=ExtResource( 5 )]
+position = Vector2( -20.1333, -18.5333 )
+scale = Vector2( 0.8, 0.8 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 45 )

@@ -171,7 +171,16 @@ func takesDamage(dmg, attackPosition):
 	$Camera/Camera2D.shake(0.2, 15, 20, 0)
 	
 	if(PlayerStatus.currentHealth < 1):
+		var a = load("res://particle/BloodBlackParticleBig.tscn")
+		var b = a.instance()
+		b.position = global_position
+		get_parent().add_child(b)
+		
+		player.visible = false
+		
+		yield(get_tree().create_timer(1), "timeout")
 		get_tree().change_scene("res://scene/level/EndScene.tscn")
+		
 	knockback(attackPosition)
 	var a = load("res://particle/BloodRedParticle.tscn")
 	var b = a.instance()
@@ -213,7 +222,7 @@ func skillAttack():
 		shoot("strong")
 
 func _physics_process(delta):
-	if(!isKnockingBack):
+	if(!isKnockingBack or !player.visible):
 		if(weapon.isNotAttacking):
 			weapon.attackDelay = 0.3
 		else:

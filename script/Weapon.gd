@@ -7,6 +7,7 @@ onready var animationPlayer = get_node("../../AnimationPlayer")
 onready var animationTree = get_node("../../AnimationTree")
 onready var playback = animationTree.get('parameters/playback')
 onready var player = get_parent().get_parent().get_node("Character")
+#onready var slash = get_node("Slash")
 #onready var hitbox = get_node("Hitbox")
 var attackAnimationIndex = 0
 var swordAttackAnimation = ["sword1", "sword2", "sword3"]
@@ -37,8 +38,8 @@ func swordAttack():
 	# Start timer and play the attack animation
 	playback.travel(swordAttackAnimation[attackAnimationIndex])
 	isNotAttackAnimation = false
-	
-	yield(get_tree().create_timer(animationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length - 0.1), "timeout")
+	SoundManager.play_se("sword")
+	yield(get_tree().create_timer(animationPlayer.get_animation(swordAttackAnimation[attackAnimationIndex]).length), "timeout")
 	velocity = Vector2.ZERO
 	attackAnimationIndex += 1
 	isNotAttackAnimation = true
@@ -56,8 +57,9 @@ func bowAttack():
 func attackMechanic(attackDirection):
 	if isNotAttackAnimation:
 #		var mousePos = get_global_mouse_position()
-		get_parent().look_at(global_position + attackDirection * 50)
-		
+		var tempLookAt = global_position + attackDirection * 50
+		get_parent().look_at(tempLookAt)
+#		slash.startSlash(0.2, self)
 		if(attackDirection.x > 0 and player.flip_h):
 			player.flip_h = false
 		elif(attackDirection.x < 0 and !player.flip_h):
