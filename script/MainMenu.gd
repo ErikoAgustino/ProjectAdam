@@ -10,10 +10,15 @@ func _on_exit_pressed():
 	get_tree().quit()
 
 func _on_continue_pressed():
-	pass
-
+	playLevelBGM()
+	
 func _on_newgame_pressed():
+	playLevelBGM()
 	get_tree().change_scene("res://scene/level/Tutorial.tscn")
 
 func _on_credit_pressed():
 	pass # Replace with function body.
+
+func playLevelBGM():
+	SoundManager.stop("mainMenu")
+	SoundManager.play_bgm("level")

@@ -75,4 +75,7 @@ func _on_Area2D_body_entered(body):
 		
 func _on_detectPlayer_body_entered(body):
 	if body == _player:
-		follow_player = true
+		setFollowPlayer(true)
+
+func setFollowPlayer(bol):
+	follow_player = bol

@@ -1,6 +1,6 @@
 extends Node2D
 
-const Slime = preload("res://scene/enemy/Slime.tscn")
+const Slime = preload("res://scene/enemy/Slime2.tscn")
 
 var timer = 0
 
@@ -12,6 +12,7 @@ func _process(delta):
 
 func generateSlime():
 	var slime = Slime.instance()
-	slime.position = global_position
-	slime.path_to_player = NodePath("../../Player")
-	add_child(slime)
+	slime.global_position = global_position
+#	slime.setFollowPlayer(true)
+	slime.path_to_player = NodePath("../Player")
+	get_parent().add_child(slime)
