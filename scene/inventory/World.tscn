@@ -1,0 +1,108 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://script/Pause.gd" type="Script" id=1]
+[ext_resource path="res://Fonts/m5x7.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://script/UserInterface.gd" type="Script" id=3]
+[ext_resource path="res://scene/inventory/Inventory.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scene/inventory/Hotbar.tscn" type="PackedScene" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+size = 23
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 2 )
+
+[node name="World" type="Node2D"]
+
+[node name="GUIGameplay" type="CanvasLayer" parent="."]
+layer = 100
+
+[node name="Pause" type="Control" parent="GUIGameplay"]
+pause_mode = 2
+visible = false
+margin_right = 480.0
+margin_bottom = 270.0
+script = ExtResource( 1 )
+
+[node name="DimBackground" type="ColorRect" parent="GUIGameplay/Pause"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.235294 )
+
+[node name="CenterContainer" type="CenterContainer" parent="GUIGameplay/Pause"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -240.0
+margin_top = -135.0
+margin_right = 240.0
+margin_bottom = 135.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUIGameplay/Pause/CenterContainer"]
+margin_left = 212.0
+margin_top = 91.0
+margin_right = 267.0
+margin_bottom = 179.0
+
+[node name="Label" type="Label" parent="GUIGameplay/Pause/CenterContainer/VBoxContainer"]
+margin_right = 55.0
+margin_bottom = 19.0
+custom_fonts/font = SubResource( 1 )
+text = "Paused"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="resume" type="Button" parent="GUIGameplay/Pause/CenterContainer/VBoxContainer"]
+margin_top = 23.0
+margin_right = 55.0
+margin_bottom = 42.0
+custom_colors/font_color = Color( 1, 0.6, 0, 1 )
+custom_colors/font_color_hover = Color( 1, 0.909804, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Resume"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="settings" type="Button" parent="GUIGameplay/Pause/CenterContainer/VBoxContainer"]
+margin_top = 46.0
+margin_right = 55.0
+margin_bottom = 65.0
+custom_colors/font_color = Color( 1, 0.6, 0, 1 )
+custom_colors/font_color_hover = Color( 1, 0.909804, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Settings"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="quit" type="Button" parent="GUIGameplay/Pause/CenterContainer/VBoxContainer"]
+margin_top = 69.0
+margin_right = 55.0
+margin_bottom = 88.0
+custom_colors/font_color = Color( 1, 0.6, 0, 1 )
+custom_colors/font_color_hover = Color( 1, 0.909804, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+script = ExtResource( 3 )
+
+[node name="Inventory" parent="UserInterface" instance=ExtResource( 4 )]
+visible = false
+
+[node name="Hotbar" parent="UserInterface" instance=ExtResource( 6 )]
+
+[connection signal="pressed" from="GUIGameplay/Pause/CenterContainer/VBoxContainer/resume" to="GUIGameplay/Pause" method="_on_continue_pressed"]
+[connection signal="pressed" from="GUIGameplay/Pause/CenterContainer/VBoxContainer/settings" to="GUIGameplay/Pause" method="_on_settings_pressed"]
+[connection signal="pressed" from="GUIGameplay/Pause/CenterContainer/VBoxContainer/quit" to="GUIGameplay/Pause" method="_on_quit_pressed"]
