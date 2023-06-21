@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Asset/enemy/king_slime_idle.png" type="Texture" id=1]
 [ext_resource path="res://Asset/enemy/king_slime_jump.png" type="Texture" id=2]
@@ -318,6 +318,30 @@ tracks/3/keys = {
 "values": [ Vector2( 0.4, 0.4 ) ]
 }
 
+[sub_resource type="StyleBoxFlat" id=38]
+bg_color = Color( 0.698039, 0, 0, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id=39]
+bg_color = Color( 0.0862745, 0.0862745, 0.0862745, 1 )
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color( 0, 0, 0, 1 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [node name="SlimeBoss" type="KinematicBody2D"]
 position = Vector2( 613, 310 )
 collision_layer = 2
@@ -362,6 +386,16 @@ anims/Land = SubResource( 34 )
 anims/RESET = SubResource( 36 )
 anims/Walk = SubResource( 35 )
 anims/hilang = SubResource( 37 )
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+margin_left = -17.0
+margin_top = -60.0
+margin_right = 33.0
+margin_bottom = -46.0
+custom_styles/fg = SubResource( 38 )
+custom_styles/bg = SubResource( 39 )
+value = 50.0
+percent_visible = false
 
 [connection signal="body_entered" from="detectPlayer" to="." method="_on_detectPlayer_body_entered"]
 [connection signal="area_shape_entered" from="Area2D" to="." method="_on_Area2D_area_shape_entered"]

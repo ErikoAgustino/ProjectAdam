@@ -1077,7 +1077,7 @@ position = Vector2( 0.516455, 12.9773 )
 rotation = -2.84663
 scale = Vector2( 0.8, 0.8 )
 collision_layer = 4
-collision_mask = 2
+collision_mask = 514
 script = null
 
 [node name="CollisionShape2D" parent="WeaponContainer/Weapon/Hitbox" index="0"]

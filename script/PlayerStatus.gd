@@ -1,22 +1,23 @@
 extends Node
 
-#signal levelups(level)
+signal levelups(level, expReq)
 signal healthChanged(health)
 signal manaChanged(mana)
+signal expChanged(ex)
 
-var level = 0
+var level = 1
 var currentXP = 0
 var xpRequireToNextLevel = 0
 var strenght = 0
 var agility = 0
 var intelligence = 0
-var currentHealth = 80 setget changeHealth
-var currentMana = 80 setget changeMana
+var currentHealth = 100 setget changeHealth
+var currentMana = 100 setget changeMana
 var maxHealth = 100
 var maxMana = 100
 
 func _ready():
-	initialize(0, 0, 10, 1, 1, 1)
+	initialize(1, 0, 10, 1, 1, 1)
 
 func changeHealth(hp):
 	currentHealth = hp
@@ -39,6 +40,7 @@ func addXP(amount):
 	while currentXP >= xpRequireToNextLevel :
 		currentXP = 0
 		levelup()
+	emit_signal("expChanged", currentXP)
 	
 func getXPRequireToNextLevel(level):
 	return round(pow(level, 1.5))
@@ -49,4 +51,5 @@ func levelup():
 	strenght += 1  
 	agility += 1
 	intelligence += 1
-#	emit_signal("levelups", level, xpreq, strenght , agility, intelligence)
+	changeHealth(100)
+	emit_signal("levelups", level, xpRequireToNextLevel)

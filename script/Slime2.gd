@@ -6,21 +6,33 @@ const DropItem = preload("res://scene/ui/ItemDrop.tscn")
 const damage_indc = preload("res://scene/ui/DamageIndicator.tscn")
 
 onready var player = get_node(path_to_player)
+onready var healthBar = get_node("HealthBar")
 var direction = Vector2.ZERO
 var speed = 4000
 var hp = 100
+
+var isKnockingBack = false
+
+func _ready():
+	hp += 100 * (PlayerStatus.level * 0.2)
+	healthBar.max_value = hp
+	healthBar.value = hp
 
 func updateDirection(followPosition):
 	direction = followPosition - position
 
 func _physics_process(delta):
-	updateDirection(player.global_position)
-	if(direction.x > 0):
-		$AnimatedSprite.flip_h = true
+	if(!isKnockingBack):
+		updateDirection(player.global_position)
+	
+		if(direction.x > 0):
+			$AnimatedSprite.flip_h = true
+		else:
+			$AnimatedSprite.flip_h = false
+		move_and_slide(direction.normalized() * delta * speed)
 	else:
-		$AnimatedSprite.flip_h = false
-	move_and_slide(direction.normalized() * delta * speed)
-
+		move_and_slide(direction.normalized() * delta * 6000)
+	
 func _on_Area2D_body_entered(body):
 	if(body.has_method("takesDamage")):
 		body.takesDamage(4, global_position)
@@ -28,6 +40,7 @@ func _on_Area2D_body_entered(body):
 	
 func takesDamage(dmg, attackPosition):
 	hp-= dmg
+	healthBar.value = hp
 	spawn_damage(dmg)
 	if(hp<=0):
 		var dropItem = DropItem.instance()
@@ -64,3 +77,8 @@ func spawn_damage (damage:int):
 
 func knockback(attackPosition):
 	direction = ((position - attackPosition).normalized()) * 500
+	isKnockingBack = true
+	$Timer.start(0.5)
+
+func _on_Timer_timeout():
+	isKnockingBack = false

@@ -6,6 +6,8 @@ onready var ANI = get_node("AnimationPlayer")
 func _ready() ->void :
 	_agent.set_target_location(_player.global_position)
 	_timer.connect("timeout",self,"_update_pathfinding")
+	$HealthBar.max_value = hp
+	$HealthBar.value = hp
 	
 func _physics_process(delta: float )-> void:
 	
@@ -125,6 +127,7 @@ func knockback(attackPosition):
 	
 func takesDamage(dmg, attackPosition):
 	hp-= dmg
+	$HealthBar.value = hp
 	spawn_damage(dmg)
 	if(hp<=0):
 		var dropItem = DropItem.instance()
@@ -153,8 +156,10 @@ func takesDamage(dmg, attackPosition):
 #		follow_player = false
 
 func _on_detectPlayer_body_entered(body):
-	if body == _player:
+	if body == _player and !follow_player:
 		follow_player = true
+		SoundManager.stop("level")
+		SoundManager.play_bgm("boss")
 
 
 func _on_Area2D_body_entered(body):

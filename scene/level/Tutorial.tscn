@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Asset/TileMap/Wall_Stone.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Asset/TileMap/Floor_Stone.tscn" type="PackedScene" id=2]
@@ -12,6 +12,8 @@
 [ext_resource path="res://script/Tutorial.gd" type="Script" id=10]
 [ext_resource path="res://Fonts/m5x7.ttf" type="DynamicFontData" id=11]
 [ext_resource path="res://scene/enemy/SlimeBoss.tscn" type="PackedScene" id=12]
+[ext_resource path="res://images/2d_lights_and_shadows_neutral_point_light.webp" type="Texture" id=13]
+[ext_resource path="res://scene/ui/FadeScreen.tscn" type="PackedScene" id=14]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -83,22 +85,39 @@ text = "Use this joystick to move around"
 fit_content_height = true
 scroll_active = false
 
+[node name="Light2D" type="Light2D" parent="Control/RichTextLabel"]
+position = Vector2( 86, 51 )
+texture = ExtResource( 13 )
+texture_scale = 1.8
+energy = 1.03
+shadow_enabled = true
+
 [node name="RichTextLabel2" type="RichTextLabel" parent="Control"]
-margin_left = 875.0
-margin_top = 515.0
-margin_right = 1090.0
-margin_bottom = 632.0
+margin_left = 918.0
+margin_top = 561.0
+margin_right = 1133.0
+margin_bottom = 678.0
 custom_fonts/normal_font = SubResource( 1 )
 text = "Use this button to attack"
 fit_content_height = true
 scroll_active = false
 
+[node name="Light2D" type="Light2D" parent="Control/RichTextLabel2"]
+position = Vector2( 70, 71 )
+scale = Vector2( 0.713325, 0.660156 )
+texture = ExtResource( 13 )
+texture_scale = 1.8
+energy = 1.03
+shadow_enabled = true
+
 [node name="RichTextLabel3" type="RichTextLabel" parent="Control"]
-margin_left = 1023.0
-margin_top = 293.0
-margin_right = 1238.0
-margin_bottom = 410.0
+margin_left = 951.0
+margin_top = 349.0
+margin_right = 1166.0
+margin_bottom = 466.0
 custom_fonts/normal_font = SubResource( 1 )
 text = "Use this button to dash"
 fit_content_height = true
 scroll_active = false
+
+[node name="FadeScreen" parent="." instance=ExtResource( 14 )]

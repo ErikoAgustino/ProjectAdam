@@ -5,6 +5,7 @@ const MAX_SPEED = 225
 var velocity = Vector2(60, -500)
 var item_name
 var initialPosition
+var direction = Vector2.ZERO
 
 var player = null
 var being_picked_up = false
@@ -29,6 +30,7 @@ func _physics_process(delta):
 		velocity += Vector2(0, 50)
 	elif(position.y > initialPosition.y):
 		velocity = Vector2.ZERO
+
 	velocity = move_and_slide(velocity)
 
 func pick_up_item(body):
@@ -36,6 +38,8 @@ func pick_up_item(body):
 	being_picked_up = true
 
 func _on_Area2D_body_entered(body):
+	print("OK")
 	if(body.has_method("playerMovement")):
-		PlayerInventory.add_item(item_name, 1)
+#		PlayerInventory.add_item(item_name, 1)
+		PlayerStatus.addXP(1)
 		queue_free()

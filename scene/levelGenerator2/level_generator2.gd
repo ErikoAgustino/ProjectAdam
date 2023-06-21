@@ -130,3 +130,20 @@ func _ready():
 	
 	$Player.position = ROOM_COORDINATE[0]
 	$EnemyGenerator.position = ROOM_COORDINATE[0]
+	$EnemyGenerator2.position = ROOM_COORDINATE[1]
+	$EnemyGenerator3.position = ROOM_COORDINATE[2]
+	$EnemyGenerator4.position = ROOM_COORDINATE[3]
+	$EnemyGenerator5.position = ROOM_COORDINATE[4]
+	$EnemyGenerator6.position = ROOM_COORDINATE[5]
+	$EnemyGenerator7.position = ROOM_COORDINATE[6]
+	$Portal.position = ROOM_COORDINATE[8]
+	
+	$Portal.connect("player_entered", self, "changeRoom")
+	
+	$FadeScreen.fadeOut()
+	
+func changeRoom():
+	$FadeScreen.fadeIn()
+	GameManager.currentLevel += 1
+	yield(get_tree().create_timer(0.5), "timeout")
+	get_tree().reload_current_scene()

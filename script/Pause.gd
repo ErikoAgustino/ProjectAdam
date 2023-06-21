@@ -21,5 +21,7 @@ func _on_settings_pressed():
 	pass # Replace with function body.
 
 func _on_quit_pressed():
+	SoundManager.stop("level")
+	SoundManager.stop("boss")
 	self.is_paused = false
 	get_tree().change_scene("res://scene/ui/MainMenu.tscn")

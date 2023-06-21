@@ -4,6 +4,8 @@ const DropItem = preload("res://scene/ui/ItemDrop.tscn")
 
 func _ready() ->void :
 	_agent.set_target_location(_player.global_position)
+	$HealthBar.max_value = hp
+	$HealthBar.value = hp
 #	_timer.connect("timeout",self,"_update_pathfinding")
 	
 func _physics_process(delta: float )-> void:
@@ -43,6 +45,7 @@ func knockback(attackPosition):
 	
 func takesDamage(dmg, attackPosition):
 	hp-= dmg
+	$HealthBar.value = hp
 	spawn_damage(dmg)
 	if(hp<=0):
 		var dropItem = DropItem.instance()

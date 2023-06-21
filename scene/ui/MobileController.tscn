@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Asset/Texture/pause.png" type="Texture" id=1]
 [ext_resource path="res://Asset/Texture/inventoryButton.png" type="Texture" id=2]
@@ -6,41 +6,44 @@
 [ext_resource path="res://Asset/Texture/swordButton.png" type="Texture" id=4]
 [ext_resource path="res://script/MobileController.gd" type="Script" id=5]
 [ext_resource path="res://Asset/Texture/joystickBG.png" type="Texture" id=6]
+[ext_resource path="res://Fonts/Pixeboy-z8XGD.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Asset/Texture/ui_set_v0_1.png" type="Texture" id=8]
+[ext_resource path="res://Fonts/m5x7.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Asset/Texture/ui_set_v0_1 (1).png" type="Texture" id=10]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.8, 0.305882, 0.305882, 1 )
-border_width_bottom = 10
-border_color = Color( 0.6, 0.180392, 0.317647, 1 )
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-shadow_offset = Vector2( 0, 1 )
+[sub_resource type="DynamicFont" id=12]
+size = 32
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 9 )
 
-[sub_resource type="StyleBoxFlat" id=2]
-bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 7 )
 
-[sub_resource type="StyleBoxFlat" id=3]
-bg_color = Color( 0.337255, 0.337255, 0.839216, 1 )
-border_width_bottom = 10
-border_color = Color( 0.345098, 0.192157, 0.65098, 1 )
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id=6]
+texture = ExtResource( 8 )
+region_rect = Rect2( 3, 2, 74, 6 )
 
-[sub_resource type="StyleBoxFlat" id=4]
-bg_color = Color( 0.117647, 0.117647, 0.117647, 1 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxTexture" id=7]
+texture = ExtResource( 8 )
+region_rect = Rect2( 3, 26, 74, 6 )
+
+[sub_resource type="DynamicFont" id=8]
+size = 28
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 9 )
+
+[sub_resource type="DynamicFont" id=9]
+font_data = ExtResource( 7 )
+
+[sub_resource type="StyleBoxTexture" id=10]
+texture = ExtResource( 8 )
+region_rect = Rect2( 3, 14, 74, 6 )
+
+[sub_resource type="StyleBoxTexture" id=11]
+texture = ExtResource( 8 )
+region_rect = Rect2( 3, 26, 74, 6 )
 
 [node name="MobileController" type="Control"]
 anchor_right = 1.0
@@ -59,6 +62,7 @@ expand = true
 stretch_mode = 4
 
 [node name="InventoryButton" type="TextureButton" parent="."]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -80.0
@@ -70,6 +74,7 @@ expand = true
 stretch_mode = 5
 
 [node name="MovementJoystick" parent="." instance=ExtResource( 3 )]
+mouse_filter = 2
 clampzone_size = 50.0
 
 [node name="AttackJoystick" parent="." instance=ExtResource( 3 )]
@@ -77,6 +82,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -250.0
 margin_right = -50.0
+mouse_filter = 2
 tipTexture = ExtResource( 4 )
 deadzone_size = 25.0
 clampzone_size = 26.0
@@ -91,7 +97,9 @@ margin_left = 1110.0
 margin_top = 340.0
 margin_right = 1230.0
 margin_bottom = 460.0
-texture_normal = ExtResource( 6 )
+action_mode = 0
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 6 )
 expand = true
 stretch_mode = 4
 
@@ -100,6 +108,7 @@ margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Skill1" type="TextureButton" parent="Skill"]
+visible = false
 modulate = Color( 1, 1, 1, 0.54902 )
 margin_left = 890.0
 margin_top = 550.0
@@ -120,6 +129,16 @@ texture_normal = ExtResource( 6 )
 expand = true
 stretch_mode = 4
 
+[node name="FloorLabel" type="RichTextLabel" parent="."]
+margin_left = 15.0
+margin_top = 75.0
+margin_right = 174.0
+margin_bottom = 108.0
+custom_fonts/normal_font = SubResource( 12 )
+text = "Floor"
+fit_content_height = true
+scroll_active = false
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 10.0
 margin_top = 10.0
@@ -131,21 +150,43 @@ custom_constants/separation = 10
 margin_right = 500.0
 margin_bottom = 25.0
 rect_min_size = Vector2( 0, 25 )
-custom_styles/fg = SubResource( 1 )
-custom_styles/bg = SubResource( 2 )
+custom_fonts/font = SubResource( 5 )
+custom_styles/fg = SubResource( 6 )
+custom_styles/bg = SubResource( 7 )
 value = 20.0
 
-[node name="ManaBar" type="ProgressBar" parent="VBoxContainer"]
+[node name="RichTextLabel3" type="RichTextLabel" parent="VBoxContainer/HealthBar"]
+margin_left = 506.0
+margin_top = 1.0
+margin_right = 563.0
+margin_bottom = 34.0
+custom_fonts/normal_font = SubResource( 8 )
+text = "HP"
+fit_content_height = true
+scroll_active = false
+
+[node name="EXPBar" type="ProgressBar" parent="VBoxContainer"]
 margin_top = 35.0
 margin_right = 500.0
 margin_bottom = 60.0
 rect_min_size = Vector2( 0, 25 )
-custom_styles/fg = SubResource( 3 )
-custom_styles/bg = SubResource( 4 )
+custom_fonts/font = SubResource( 9 )
+custom_styles/fg = SubResource( 10 )
+custom_styles/bg = SubResource( 11 )
 value = 50.0
+
+[node name="LevelLabel" type="RichTextLabel" parent="VBoxContainer/EXPBar"]
+margin_left = 506.0
+margin_top = 1.0
+margin_right = 665.0
+margin_bottom = 34.0
+custom_fonts/normal_font = SubResource( 8 )
+text = "Level"
+fit_content_height = true
+scroll_active = false
 
 [connection signal="pressed" from="PauseButton" to="." method="_on_PauseButton_pressed"]
 [connection signal="pressed" from="InventoryButton" to="." method="_on_InventoryButton_pressed"]
-[connection signal="button_down" from="DashButton" to="." method="_on_DashButton_button_down"]
+[connection signal="pressed" from="DashButton" to="." method="_on_DashButton_pressed"]
 [connection signal="pressed" from="Skill/Skill1" to="." method="_on_Skill1_pressed"]
 [connection signal="pressed" from="Skill/Skill2" to="." method="_on_Skill2_pressed"]
